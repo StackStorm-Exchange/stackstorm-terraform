@@ -1,0 +1,9 @@
+---
+ref: terraform
+name: Terraform
+description: A simple pack containing examples of sensor, rule, and action.
+keywords:
+    - terraform
+version: 0.1.0
+author: Martez Reed
+email: martez.reed@greenreedtech.com

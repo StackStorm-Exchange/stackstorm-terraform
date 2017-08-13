@@ -1,0 +1,6 @@
+---
+name: "apply"
+runner_type: "python-script"
+description: "Apply Terraform"
+enabled: true
+entry_point: "apply.py"

@@ -1,0 +1,1 @@
+-e git+https://github.com/beelit94/python-terraform.git#egg=python-terraform
