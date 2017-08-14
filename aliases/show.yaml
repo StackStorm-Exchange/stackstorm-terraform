@@ -1,0 +1,12 @@
+---
+name: "show"
+pack: "terraform"
+description: "Show state"
+action_ref: "terraform.show"
+ack:
+  format: "Getting ready to show you stuff!"
+  append_url: false
+formats:
+  - "terraform show {{planpath}}"
+result:
+  format: "action completed! {~} {{ execution.result.result[1] }}"
