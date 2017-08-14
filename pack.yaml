@@ -1,6 +1,7 @@
 ---
 ref: terraform
 name: Terraform
+runner_type: "python-script"
 description: A simple pack containing examples of sensor, rule, and action.
 keywords:
     - terraform

@@ -1,9 +1,9 @@
 ---
-name: "apply"
+name: "show"
 runner_type: "python-script"
-description: "Apply the changes required to reach the desired state of the configuration"
+description: "Provides human-readable output from a state or plan file"
 enabled: true
-entry_point: "apply.py"
+entry_point: "show.py"
 parameters:
   planpath:
     type: "string"

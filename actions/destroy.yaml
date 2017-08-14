@@ -1,9 +1,9 @@
 ---
-name: "apply"
+name: "destroy"
 runner_type: "python-script"
-description: "Apply the changes required to reach the desired state of the configuration"
+description: "Destroy the Terraform-managed infrastructure"
 enabled: true
-entry_point: "apply.py"
+entry_point: "destroy.py"
 parameters:
   planpath:
     type: "string"

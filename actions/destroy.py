@@ -1,7 +1,7 @@
 from lib import action
 import os
 
-class Apply(action.BaseAction):
+class Destroy(action.BaseAction):
     def run(self, planpath):
       os.chdir(planpath)
-      return self.terraform.apply(planpath)
+      return self.terraform.destroy(planpath)
