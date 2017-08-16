@@ -1,8 +1,8 @@
 ---
 ref: terraform
-name: Terraform
+name: terraform
 runner_type: "python-script"
-description: A simple pack containing examples of sensor, rule, and action.
+description: st2 content pack containing Terraform integrations
 keywords:
     - terraform
 version: 0.1.0

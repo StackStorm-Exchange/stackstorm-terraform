@@ -4,7 +4,7 @@ pack: "terraform"
 description: "Show state"
 action_ref: "terraform.show"
 ack:
-  format: "Getting ready to show you stuff!"
+  format: "Showing Terraform State"
   append_url: false
 formats:
   - "terraform show {{planpath}}"
