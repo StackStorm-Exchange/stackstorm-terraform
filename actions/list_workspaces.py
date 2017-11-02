@@ -2,12 +2,12 @@ from lib import action
 import os
 from python_terraform import *
 
-class Show(action.BaseAction):
+class ListWorkspaces(action.BaseAction):
     def run(self, planpath):
       os.chdir(planpath)
-      return_code, stdout, stderr = self.terraform.show(no_color=IsFlagged)
+      return_code, stdout, stderr = self.terraform.workspace("list", planpath)
       output = stdout + "\n" + stderr
       if return_code == 0:
         return (True, output)
       else:
-	    return (False, output)
+        return (False, output)

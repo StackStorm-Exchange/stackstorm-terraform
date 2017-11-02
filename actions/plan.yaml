@@ -1,9 +1,9 @@
 ---
-name: "apply"
+name: "plan"
 runner_type: "python-script"
-description: "Apply the changes required to reach the desired state of the configuration"
+description: "Plan the changes required to reach the desired state of the configuration"
 enabled: true
-entry_point: "apply.py"
+entry_point: "plan.py"
 parameters:
   planpath:
     type: "string"

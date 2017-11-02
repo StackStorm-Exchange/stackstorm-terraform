@@ -1,0 +1,11 @@
+---
+name: "list_workspaces"
+runner_type: "python-script"
+description: "List Terraform workspaces"
+enabled: true
+entry_point: "list_workspaces.py"
+parameters:
+  planpath:
+    type: "string"
+    description: "Path of the terraform plan"
+    required: true

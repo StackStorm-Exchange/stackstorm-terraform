@@ -1,0 +1,15 @@
+---
+name: "init"
+runner_type: "python-script"
+description: "Initialize a working directory containing Terraform configuration files."
+enabled: true
+entry_point: "init.py"
+parameters:
+  planpath:
+    type: "string"
+    description: "Path of the terraform plan"
+    required: true
+  backend:
+    type: "string"
+    description: "Backend configuration file"
+    required: false

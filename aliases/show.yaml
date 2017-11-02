@@ -9,4 +9,4 @@ ack:
 formats:
   - "terraform show {{planpath}}"
 result:
-  format: "action completed! {~} {{ execution.result.result[1] }}"
+  format: "action completed! {~} {{ execution.result }}"

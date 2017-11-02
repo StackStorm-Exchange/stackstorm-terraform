@@ -9,3 +9,7 @@ parameters:
     type: "string"
     description: "Path of the terraform plan"
     required: true
+  variable_files:
+    type: "array"
+    description: "Terraform variable files"
+    required: false
