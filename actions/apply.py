@@ -11,7 +11,7 @@ class Apply(action.BaseAction):
         - var_file: array of Terraform variable files
 
         Returns:
-        - dict: Terraform apply output
+        - dict: Terraform apply command output
         """
         os.chdir(planpath)
         return_code, stdout, stderr = self.terraform.apply(planpath, var_file=variable_files)

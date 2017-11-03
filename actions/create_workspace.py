@@ -1,6 +1,5 @@
 import os
 from lib import action
-from python_terraform import *
 
 class CreateWorkspace(action.BaseAction):
     def run(self, planpath, workspace):
@@ -12,7 +11,7 @@ class CreateWorkspace(action.BaseAction):
         - workspace: The name of the workspace to create
 
         Returns:
-        - dict: Terraform workspace new output
+        - dict: Terraform workspace new command output
         """
         os.chdir(planpath)
         return_code, stdout, stderr = self.terraform.workspace("new", workspace, planpath)

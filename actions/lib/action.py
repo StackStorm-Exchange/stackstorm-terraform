@@ -1,5 +1,5 @@
-from st2actions.runners.pythonrunner import Action
-from python_terraform import *
+from st2common.runners.base_action import Action
+from python_terraform import Terraform
 
 class BaseAction(Action):
     def __init__(self, config):

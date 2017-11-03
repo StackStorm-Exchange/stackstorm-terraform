@@ -12,7 +12,7 @@ class DeleteWorkspace(action.BaseAction):
         - workspace: The name of the workspace to delete
 
         Returns:
-        - dict: Terraform workspace delete output
+        - dict: Terraform workspace delete command output
         """
         os.chdir(planpath)
         return_code, stdout, stderr = self.terraform.workspace("delete", workspace, planpath)

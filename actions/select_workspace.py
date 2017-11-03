@@ -12,7 +12,7 @@ class SelectWorkspace(action.BaseAction):
         - workspace: The name of the workspace to select
 
         Returns:
-        - dict: Terraform workspace select output
+        - dict: Terraform workspace select command output
         """
         os.chdir(planpath)
         return_code, stdout, stderr = self.terraform.workspace("select", workspace, planpath)
