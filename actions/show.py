@@ -1,5 +1,6 @@
 import os
 from lib import action
+from python_terraform import *
 
 class Show(action.TerraformBaseAction):
     def run(self, planpath, terraform_exec):
@@ -20,4 +21,4 @@ class Show(action.TerraformBaseAction):
         if return_code == 0:
             return (True, output)
         else:
-	        return (False, output)
+	    return (False, output)
