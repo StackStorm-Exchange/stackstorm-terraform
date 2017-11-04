@@ -16,7 +16,7 @@ class DeleteWorkspace(action.TerraformBaseAction):
         """
         os.chdir(plan_path)
         self.terraform.terraform_bin_path = terraform_exec
-        return_code, stdout, stderr = self.terraform.workspace("delete", workspace, plan_path)
+        return_code, stdout, stderr = self.terraform.workspace("delete", workspace, plan_path, force="true")
         output = stdout + "\n" + stderr
         if return_code == 0:
             return (True, output)
