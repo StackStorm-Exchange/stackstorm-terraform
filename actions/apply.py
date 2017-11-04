@@ -14,9 +14,9 @@ class Apply(action.TerraformBaseAction):
         Returns:
         - dict: Terraform apply command output
         """
-        os.chdir(planpath)
+        os.chdir(plan_path)
         self.terraform.terraform_bin_path = terraform_exec
-        return_code, stdout, stderr = self.terraform.apply(planpath, var_file=variable_files)
+        return_code, stdout, stderr = self.terraform.apply(plan_path, var_file=variable_files)
         output = stdout + "\n" + stderr
         if return_code == 0:
             return (True, output)

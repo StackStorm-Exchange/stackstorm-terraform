@@ -2,21 +2,21 @@ import os
 from lib import action
 
 class DeleteWorkspace(action.TerraformBaseAction):
-    def run(self, planpath, terraform_exec, workspace):
+    def run(self, plan_path, terraform_exec, workspace):
         """
         Create Terraform workspace
 
         Args:
-        - planpath: path of the Terraform files
+        - plan_path: path of the Terraform files
         - terraform_exec: path of the Terraform bin
         - workspace: The name of the workspace to delete
 
         Returns:
         - dict: Terraform workspace delete command output
         """
-        os.chdir(planpath)
+        os.chdir(plan_path)
         self.terraform.terraform_bin_path = terraform_exec
-        return_code, stdout, stderr = self.terraform.workspace("delete", workspace, planpath)
+        return_code, stdout, stderr = self.terraform.workspace("delete", workspace, plan_path)
         output = stdout + "\n" + stderr
         if return_code == 0:
             return (True, output)

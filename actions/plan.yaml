@@ -5,7 +5,7 @@ description: "Plan the changes required to reach the desired state of the config
 enabled: true
 entry_point: "plan.py"
 parameters:
-  planpath:
+  plan_path:
     type: "string"
     description: "Path of the terraform plan"
     required: true

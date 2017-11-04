@@ -5,7 +5,7 @@ description: "Apply the changes required to reach the desired state of the confi
 enabled: true
 entry_point: "apply.py"
 parameters:
-  planpath:
+  plan_path:
     type: "string"
     description: "Path of the terraform plan"
     required: true
