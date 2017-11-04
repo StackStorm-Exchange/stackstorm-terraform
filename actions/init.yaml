@@ -13,3 +13,8 @@ parameters:
     type: "string"
     description: "Backend configuration file"
     required: false
+  terraform_exec:
+    type: "string"
+    description: "Terraform executable path (default: terraform in the $PATH)"
+    required: false
+    default: "terraform"

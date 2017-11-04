@@ -1,9 +1,9 @@
 ---
-name: "plan"
+name: "output"
 runner_type: "python-script"
-description: "Plan the changes required to reach the desired state of the configuration"
+description: "Output output variables from the state file."
 enabled: true
-entry_point: "plan.py"
+entry_point: "output.py"
 parameters:
   planpath:
     type: "string"
@@ -14,7 +14,3 @@ parameters:
     description: "Terraform executable path (default: terraform in the $PATH)"
     required: false
     default: "terraform"
-  variable_files:
-    type: "array"
-    description: "Terraform variable files"
-    required: false

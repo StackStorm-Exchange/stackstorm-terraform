@@ -1,14 +1,10 @@
 ---
-name: "show"
+name: "get_version"
 runner_type: "python-script"
-description: "Provides human-readable output from a state or plan file"
+description: "Get the Terraform version"
 enabled: true
-entry_point: "show.py"
+entry_point: "get_version.py"
 parameters:
-  planpath:
-    type: "string"
-    description: "Path of the terraform plan"
-    required: true
   terraform_exec:
     type: "string"
     description: "Terraform executable path (default: terraform in the $PATH)"

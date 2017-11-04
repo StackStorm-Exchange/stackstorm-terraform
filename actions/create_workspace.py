@@ -1,19 +1,21 @@
 import os
 from lib import action
 
-class CreateWorkspace(action.BaseAction):
-    def run(self, planpath, workspace):
+class CreateWorkspace(action.TerraformBaseAction):
+    def run(self, planpath, terraform_exec, workspace):
         """
         Create Terraform workspace
 
         Args:
         - planpath: path of the Terraform files
+        - terraform_exec: path of the Terraform bin
         - workspace: The name of the workspace to create
 
         Returns:
         - dict: Terraform workspace new command output
         """
         os.chdir(planpath)
+        self.terraform.terraform_bin_path = terraform_exec
         return_code, stdout, stderr = self.terraform.workspace("new", workspace, planpath)
         output = stdout + "\n" + stderr
         if return_code == 0:

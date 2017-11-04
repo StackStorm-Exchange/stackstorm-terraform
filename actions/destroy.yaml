@@ -9,6 +9,11 @@ parameters:
     type: "string"
     description: "Path of the terraform plan"
     required: true
+  terraform_exec:
+    type: "string"
+    description: "Terraform executable path (default: terraform in the $PATH)"
+    required: false
+    default: "terraform"
   variable_files:
     type: "array"
     description: "Terraform variable files"

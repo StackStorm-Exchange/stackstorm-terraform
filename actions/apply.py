@@ -1,19 +1,21 @@
 import os
 from lib import action
 
-class Apply(action.BaseAction):
-    def run(self, planpath, variable_files):
+class Apply(action.TerraformBaseAction):
+    def run(self, plan_path, terraform_exec, variable_files):
         """
         Apply the changes required to reach the desired state of the configuration.
 
         Args:
-        - planpath: path of the Terraform files
+        - plan_path: path of the Terraform files
+        - terraform_exec: path of the Terraform bin
         - var_file: array of Terraform variable files
 
         Returns:
         - dict: Terraform apply command output
         """
         os.chdir(planpath)
+        self.terraform.terraform_bin_path = terraform_exec
         return_code, stdout, stderr = self.terraform.apply(planpath, var_file=variable_files)
         output = stdout + "\n" + stderr
         if return_code == 0:
