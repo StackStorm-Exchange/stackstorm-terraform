@@ -16,4 +16,9 @@ class Init(action.TerraformBaseAction):
         """
         os.chdir(planpath)
         self.terraform.terraform_bin_path = terraform_exec
-        return self.terraform.init(planpath, backend_config=backend)
+        return_code, stdout, stderr = self.terraform.init(planpath, backend_config=backend)
+        output = stdout + "\n" + stderr
+        if return_code == 0:
+            return (True, output)
+        else:
+            return (False, output)
