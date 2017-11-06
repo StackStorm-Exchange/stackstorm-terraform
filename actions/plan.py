@@ -23,4 +23,4 @@ class Plan(action.TerraformBaseAction):
         elif return_code == 2:
             return (True, output)
         else:
-	        return (False, output)
+            return (False, output)
