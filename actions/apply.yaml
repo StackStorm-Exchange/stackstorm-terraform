@@ -1,0 +1,20 @@
+---
+name: "apply"
+runner_type: "python-script"
+description: "Apply the changes required to reach the desired state of the configuration"
+enabled: true
+entry_point: "apply.py"
+parameters:
+  plan_path:
+    type: "string"
+    description: "Path of the terraform plan"
+    required: true
+  terraform_exec:
+    type: "string"
+    description: "Terraform executable path (default: terraform in the $PATH)"
+    required: false
+    default: "terraform"
+  variable_files:
+    type: "array"
+    description: "Terraform variable files"
+    required: false

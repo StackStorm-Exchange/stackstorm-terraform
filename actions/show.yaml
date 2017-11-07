@@ -1,0 +1,16 @@
+---
+name: "show"
+runner_type: "python-script"
+description: "Provides human-readable output from a state or plan file"
+enabled: true
+entry_point: "show.py"
+parameters:
+  plan_path:
+    type: "string"
+    description: "Path of the terraform plan"
+    required: true
+  terraform_exec:
+    type: "string"
+    description: "Terraform executable path (default: terraform in the $PATH)"
+    required: false
+    default: "terraform"
