@@ -16,4 +16,4 @@ class Output(action.TerraformBaseAction):
         """
         os.chdir(plan_path)
         self.terraform.terraform_bin_path = terraform_exec
-        return self.terraform.output(plan_path, -json)
+        return self.terraform.output()
