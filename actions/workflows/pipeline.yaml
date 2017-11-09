@@ -1,0 +1,71 @@
+---
+version: '2.0'
+
+terraform.terraform_pipeline:
+  description: "A workflow that can be used as a pipeline for Terraform execution"
+
+  input:
+    - backend
+    - plan_path
+    - terraform_exec
+    - workspace
+    - variable_files
+
+  tasks:
+    init:
+      action: terraform.init
+
+      input:
+        backend: <% $.backend %>
+        plan_path: <% $.plan_path %>
+        terraform_exec: <% $.terraform_exec %>
+
+      on-success:
+        - select_workspace
+
+      on-error:
+        - no_deloyment
+
+    select_workspace:
+      action: terraform.select_workspace
+
+      input:
+        plan_path: <% $.plan_path %>
+        terraform_exec: <% $.terraform_exec %>
+        workspace: <% $.workspace %>
+
+      on-success:
+        - plan
+
+      on-error:
+        - create_workspace
+
+    create_workspace:
+      action: terraform.create_workspace
+
+      input:
+        plan_path: <% $.plan_path %>
+        terraform_exec: <% $.terraform_exec %>
+        workspace: <% $.workspace %>
+
+      on-success:
+        - plan
+
+    plan:
+      action: terraform.plan
+
+      input:
+        plan_path: <% $.plan_path %>
+        terraform_exec: <% $.terraform_exec %>
+        var_file: <% $.variable_files %>
+
+    apply:
+      action: terraform.apply
+
+      input:
+        plan_path: <% $.plan_path %>
+        terraform_exec: <% $.terraform_exec %>
+        var_file: <% $.variable_files %>
+
+    no_deloyment:
+      action: core.noop

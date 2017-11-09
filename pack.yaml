@@ -1,0 +1,10 @@
+---
+ref: terraform
+name: terraform
+runner_type: "python-script"
+description: st2 content pack containing Terraform integrations
+keywords:
+    - terraform
+version: 0.1.0
+author: Martez Reed
+email: martez.reed@greenreedtech.com
