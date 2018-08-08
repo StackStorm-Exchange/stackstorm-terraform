@@ -1,7 +1,7 @@
 ---
 version: '2.0'
 
-terraform.terraform_pipeline:
+terraform.pipeline:
   description: "A workflow that can be used as a pipeline for Terraform execution"
 
   input:
@@ -22,9 +22,8 @@ terraform.terraform_pipeline:
 
       on-success:
         - select_workspace
-
       on-error:
-        - no_deloyment
+        - fail
 
     select_workspace:
       action: terraform.select_workspace
@@ -36,7 +35,6 @@ terraform.terraform_pipeline:
 
       on-success:
         - plan
-
       on-error:
         - create_workspace
 
@@ -50,6 +48,8 @@ terraform.terraform_pipeline:
 
       on-success:
         - plan
+      on-error:
+        - fail
 
     plan:
       action: terraform.plan
@@ -57,7 +57,12 @@ terraform.terraform_pipeline:
       input:
         plan_path: <% $.plan_path %>
         terraform_exec: <% $.terraform_exec %>
-        var_file: <% $.variable_files %>
+        variable_files: <% $.variable_files %>
+
+      on-success:
+        - apply
+      on-error:
+        - fail
 
     apply:
       action: terraform.apply
@@ -65,7 +70,6 @@ terraform.terraform_pipeline:
       input:
         plan_path: <% $.plan_path %>
         terraform_exec: <% $.terraform_exec %>
-        var_file: <% $.variable_files %>
-
-    no_deloyment:
-      action: core.noop
+        variable_files: <% $.variable_files %>
+      on-error:
+        - fail
