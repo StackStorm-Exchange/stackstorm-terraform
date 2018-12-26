@@ -10,8 +10,8 @@ parameters:
     description: "Path of the terraform plan"
     required: true
   backend:
-    type: "string"
-    description: "Backend configuration file"
+    type: "object"
+    description: "Key-Value pairs of backend configuration options."
     required: false
   terraform_exec:
     type: "string"

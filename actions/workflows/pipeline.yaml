@@ -10,6 +10,7 @@ terraform.pipeline:
     - terraform_exec
     - workspace
     - variable_files
+    - destroy
 
   tasks:
     init:
@@ -60,12 +61,23 @@ terraform.pipeline:
         variable_files: <% $.variable_files %>
 
       on-success:
-        - apply
+        - apply: <% not $.destroy %>
+        - destroy: <% $.destroy %>
       on-error:
         - fail
 
     apply:
       action: terraform.apply
+
+      input:
+        plan_path: <% $.plan_path %>
+        terraform_exec: <% $.terraform_exec %>
+        variable_files: <% $.variable_files %>
+      on-error:
+        - fail
+
+    destroy:
+      action: terraform.destroy
 
       input:
         plan_path: <% $.plan_path %>
