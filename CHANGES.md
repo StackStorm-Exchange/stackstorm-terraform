@@ -1,5 +1,8 @@
 # Change Log
 
+## 0.2.2
+- Fixed: The `pipeline` and `init` workflows need the `backend` parameter to be an object.
+
 ## 0.2.1
 - Fixed: The name of the workflow `pipeline` needed to be changed to match what is in the metadata.
 - Removed the `no_deploy` calls in plan.  This is now a `fail`.

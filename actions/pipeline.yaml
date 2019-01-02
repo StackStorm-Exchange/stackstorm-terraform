@@ -8,8 +8,8 @@ runner_type: "mistral-v2"
 
 parameters:
   backend:
-    type: "string"
-    description: "backend configuration variable file"
+    type: "object"
+    description: "Key-Value pairs of backend configuration options."
     required: false
   plan_path:
     type: "string"
@@ -27,4 +27,8 @@ parameters:
     type: "string"
     description: "The name of the Terraform workspace to use."
     default: "default"
+    required: false
+  destroy:
+    type: boolean
+    description: "Used if we want to run a destroy operation"
     required: false
