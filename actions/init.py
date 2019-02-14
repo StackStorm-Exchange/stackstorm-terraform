@@ -1,4 +1,3 @@
-import os
 from lib import action
 
 
@@ -15,7 +14,6 @@ class Init(action.TerraformBaseAction):
         Returns:
         - dict: Terraform init command output
         """
-        os.chdir(plan_path)
         self.terraform.terraform_bin_path = terraform_exec
         return_code, stdout, stderr = self.terraform.init(plan_path, backend_config=backend)
         output = stdout + "\n" + stderr
