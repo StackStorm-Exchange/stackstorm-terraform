@@ -16,8 +16,5 @@ class Init(action.TerraformBaseAction):
         """
         self.terraform.terraform_bin_path = terraform_exec
         return_code, stdout, stderr = self.terraform.init(plan_path, backend_config=backend)
-        output = stdout + "\n" + stderr
-        if return_code == 0:
-            return (True, output)
-        else:
-            return (False, output)
+
+        return self.check_result(return_code, stdout, stderr)

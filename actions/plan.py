@@ -13,7 +13,7 @@ class Plan(action.TerraformBaseAction):
         - target_resources: list of resources to target from the configuration
         - terraform_exec: path of the Terraform bin
         - variable_dict: dictionary of Terraform variables that will overwrite the
-            variable files if both are declared 
+            variable files if both are declared
         - variable_files: array of Terraform variable files
 
         Returns:
@@ -27,10 +27,7 @@ class Plan(action.TerraformBaseAction):
 
         return_code, stdout, stderr = self.terraform.plan(plan_path)
 
-        output = stdout + "\n" + stderr
-        if return_code == 0:
-            return (True, output)
-        elif return_code == 2:
-            return (True, output)
+        if return_code == 2:
+            return (True, stdout + "\n" + stderr)
         else:
-            return (False, output)
+            return self.check_result(return_code, stdout, stderr)

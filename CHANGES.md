@@ -1,4 +1,11 @@
 # Change Log
+## 0.2.2
+- Added: state_file_path variable to plan and apply actions to specify state file to use.
+- Added: target_resources variable to plan and apply actions to specify target resources.
+- Added: variable_dict variable to plan and apply actions to pass variables to terraform without needing a file.
+- Added: tests folder with unit tests for python actions.
+- Added: check_result function to lib/action.py that was used in most actions.
+- Removed: Python os module from plan, apply, and init. This isn't needed if we pass the path into the terraform function.
 
 ## 0.2.2
 - Fixed: The `pipeline` and `init` workflows need the `backend` parameter to be an object.

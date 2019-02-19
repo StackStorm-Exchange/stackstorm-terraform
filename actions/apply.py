@@ -10,10 +10,10 @@ class Apply(action.TerraformBaseAction):
         Args:
         - plan_path: path of the Terraform files
         - state_file_path: path of the Terraform state file
-        - target_resources: list of resources to target from the configuration 
+        - target_resources: list of resources to target from the configuration
         - terraform_exec: path of the Terraform bin
         - variable_dict: dictionary of Terraform variables that will overwrite the
-            variable files if both are declared  
+            variable files if both are declared
         - variable_files: array of Terraform variable files
 
         Returns:
@@ -27,8 +27,4 @@ class Apply(action.TerraformBaseAction):
 
         return_code, stdout, stderr = self.terraform.apply(plan_path, auto_approve=True)
 
-        output = stdout + "\n" + stderr
-        if return_code == 0:
-            return (True, output)
-        else:
-            return (False, output)
+        return self.check_result(return_code, stdout, stderr)
