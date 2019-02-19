@@ -41,5 +41,6 @@ class DeleteWorkspaceTestCase(TerraformBaseActionTestCase):
         self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
         mock_chdir.assert_called_with(test_plan_path)
         mock_workspace.assert_called_with("workspace")
-        action.terraform.workspace.assert_called_with("delete", "-force", test_workspace, "-no-color")
+        action.terraform.workspace.assert_called_with("delete", "-force", test_workspace,
+                                                      "-no-color")
         mock_check_result.assert_called_with(test_return_code, test_stdout, test_stderr)

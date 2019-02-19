@@ -19,7 +19,6 @@ class DestroyTestCase(TerraformBaseActionTestCase):
         # Declare test input values
         test_plan_path = "/terraform"
         test_terraform_exec = "/usr/bin/terraform"
-        #test_variable_dict = {'key1': 'value1', 'key2': 'value2'}
         test_variable_files = ["/terraform/test.tfvars"]
 
         # Declare test Terraform.plan return values
@@ -40,7 +39,6 @@ class DestroyTestCase(TerraformBaseActionTestCase):
         # Verify the results
         self.assertEqual(result, expected_result)
         self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
-        #self.assertEqual(action.terraform.var_file, test_variable_files)
         mock_chdir.assert_called_with(test_plan_path)
         mock_destroy.assert_called_with(test_plan_path, var_file=test_variable_files, force="true")
         mock_check_result.assert_called_with(test_return_code, test_stdout, test_stderr)

@@ -19,7 +19,6 @@ class ListWorkspaceTestCase(TerraformBaseActionTestCase):
         # Declare test input values
         test_plan_path = "/terraform"
         test_terraform_exec = "/usr/bin/terraform"
-        test_workspace = "test_ws"
 
         # Declare test Terraform.plan return values
         test_return_code = 0
