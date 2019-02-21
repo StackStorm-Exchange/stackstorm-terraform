@@ -1,3 +1,4 @@
+import os
 from lib import action
 
 
@@ -19,6 +20,7 @@ class Apply(action.TerraformBaseAction):
         Returns:
         - dict: Terraform apply command output
         """
+        os.chdir(plan_path)
         self.terraform.state = state_file_path
         self.terraform.targets = target_resources
         self.terraform.terraform_bin_path = terraform_exec

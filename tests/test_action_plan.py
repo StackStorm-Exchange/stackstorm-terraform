@@ -11,9 +11,10 @@ class PlanTestCase(TerraformBaseActionTestCase):
         action = self.get_action_instance({})
         self.assertIsInstance(action, Plan)
 
+    @mock.patch("list_workspaces.os.chdir")
     @mock.patch("lib.action.TerraformBaseAction.check_result")
     @mock.patch("lib.action.Terraform.plan")
-    def test_run(self, mock_plan, mock_check_result):
+    def test_run(self, mock_plan, mock_check_result, mock_chdir):
         action = self.get_action_instance({})
         # Declare test input values
         test_plan_path = "/terraform"
@@ -30,6 +31,8 @@ class PlanTestCase(TerraformBaseActionTestCase):
 
         mock_plan.return_value = test_return_code, test_stdout, test_stderr
 
+        mock_chdir.return_value = "success"
+
         expected_result = "result"
         mock_check_result.return_value = expected_result
 
@@ -44,11 +47,13 @@ class PlanTestCase(TerraformBaseActionTestCase):
         self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
         self.assertEqual(action.terraform.var_file, test_variable_files)
         self.assertEqual(action.terraform.variables, test_variable_dict)
+        mock_chdir.assert_called_with(test_plan_path)
         mock_plan.assert_called_with(test_plan_path)
         mock_check_result.assert_called_with(test_return_code, test_stdout, test_stderr)
 
+    @mock.patch("list_workspaces.os.chdir")
     @mock.patch("lib.action.Terraform.plan")
-    def test_run_exit_code_2(self, mock_plan):
+    def test_run_exit_code_2(self, mock_plan, mock_chdir):
         action = self.get_action_instance({})
         # Declare test input values
         test_plan_path = "/terraform"
@@ -65,6 +70,8 @@ class PlanTestCase(TerraformBaseActionTestCase):
 
         mock_plan.return_value = test_return_code, test_stdout, test_stderr
 
+        mock_chdir.return_value = "success"
+
         test_output = test_stdout + "\n" + test_stderr
         expected_result = (True, test_output)
 
@@ -79,4 +86,5 @@ class PlanTestCase(TerraformBaseActionTestCase):
         self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
         self.assertEqual(action.terraform.var_file, test_variable_files)
         self.assertEqual(action.terraform.variables, test_variable_dict)
+        mock_chdir.assert_called_with(test_plan_path)
         mock_plan.assert_called_with(test_plan_path)
