@@ -9,11 +9,23 @@ parameters:
     type: "string"
     description: "Path of the terraform plan"
     required: true
+  state_file_path:
+    type: "string"
+    description: "Path of terraform state file"
+    required: false
+  target_resources:
+    type: "array"
+    description: "List of resource addresses to target"
+    required: false
   terraform_exec:
     type: "string"
     description: "Terraform executable path (default: terraform in the $PATH)"
     required: false
     default: "terraform"
+  variable_dict:
+    type: "object"
+    description: "Terraform variable object (variables in here will overwrite any that are in files)"
+    required: false
   variable_files:
     type: "array"
     description: "Terraform variable files"
