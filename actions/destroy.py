@@ -19,8 +19,4 @@ class Destroy(action.TerraformBaseAction):
         self.terraform.terraform_bin_path = terraform_exec
         return_code, stdout, stderr = self.terraform.destroy(plan_path, var_file=variable_files,
                                                              force="true")
-        output = stdout + "\n" + stderr
-        if return_code == 0:
-            return (True, output)
-        else:
-            return (False, output)
+        return self.check_result(return_code, stdout, stderr)

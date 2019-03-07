@@ -16,9 +16,6 @@ class ListWorkspaces(action.TerraformBaseAction):
         """
         os.chdir(plan_path)
         self.terraform.terraform_bin_path = terraform_exec
-        return_code, stdout, stderr = self.terraform.workspace("list", plan_path)
-        output = stdout + "\n" + stderr
-        if return_code == 0:
-            return (True, output)
-        else:
-            return (False, output)
+        return_code, stdout, stderr = self.terraform.workspace("list")
+
+        return self.check_result(return_code, stdout, stderr)
