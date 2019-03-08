@@ -1,13 +1,21 @@
 ---
-name: "destroy"
+name: "import_object"
 runner_type: "python-script"
-description: "Destroy the Terraform managed infrastructure"
+description: "Import existing infrastructure into a Terraform state"
 enabled: true
-entry_point: "destroy.py"
+entry_point: "import_object.py"
 parameters:
+  hypervisor_object:
+    type: "string"
+    description: "Name or path of the hypervisor object to import"
+    required: true
   plan_path:
     type: "string"
     description: "Path of the terraform plan"
+    required: true
+  resource_name:
+    type: "string"
+    description: "Name of the Terraform resource to import an object into"
     required: true
   state_file_path:
     type: "string"

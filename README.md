@@ -15,6 +15,7 @@ There are currently no configuration parameters.
 * `terraform.delete_workspace` - Delete a Terraform workspace
 * `terraform.destroy`          - Destroy the Terraform-managed infrastructure
 * `terraform.get_version`      - Get the Terraform version
+* `terraform.import_object`    - Import existing infrastructure into a Terraform state
 * `terraform.init`             - Initialize a working directory containing Terraform configuration files.
 * `terraform.list_workspaces`  - List Terraform workspaces
 * `terraform.output`           - Output output variables from the state file.
