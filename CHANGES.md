@@ -1,4 +1,8 @@
 # Change Log
+## 0.2.4
+- Added: action to import objects into terraform files
+- Added: state_file_path and variable_dict variables to destroy action
+
 ## 0.2.3
 - Added: state_file_path variable to plan and apply actions to specify state file to use.
 - Added: target_resources variable to plan and apply actions to specify target resources.
