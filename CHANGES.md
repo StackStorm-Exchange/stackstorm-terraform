@@ -1,4 +1,8 @@
 # Change Log
+
+## 0.2.5
+- Added: variable_dict variable to pipeline workflow
+
 ## 0.2.4
 - Added: action to import objects into terraform files
 - Added: state_file_path and variable_dict variables to destroy action
