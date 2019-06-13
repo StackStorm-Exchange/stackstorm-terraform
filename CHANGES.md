@@ -1,4 +1,7 @@
 # Change Log
+## 0.2.5
+- Fixed: requirements.txt was installing an old version of the python-terraform module
+
 ## 0.2.4
 - Added: action to import objects into terraform files
 - Added: state_file_path and variable_dict variables to destroy action
