@@ -19,6 +19,10 @@ parameters:
     type: "string"
     description: "path of the Terraform bin"
     required: false
+  variable_dict:
+    type: "object"
+    description: "Terraform variable object (variables in here will overwrite any that are in files)"
+    required: false
   variable_files:
     type: "array"
     description: "Terraform variable files"
