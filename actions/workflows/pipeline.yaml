@@ -1,91 +1,90 @@
 ---
-version: '2.0'
+version: '1.0'
+description: "A workflow that can be used as a pipeline for Terraform execution"
 
-terraform.pipeline:
-  description: "A workflow that can be used as a pipeline for Terraform execution"
+input:
+  - backend
+  - plan_path
+  - terraform_exec
+  - workspace
+  - variable_dict
+  - variable_files
+  - destroy
 
-  input:
-    - backend
-    - plan_path
-    - terraform_exec
-    - workspace
-    - variable_dict
-    - variable_files
-    - destroy
+tasks:
+  init:
+    action: terraform.init
 
-  tasks:
-    init:
-      action: terraform.init
+    input:
+      backend: <% ctx().backend %>
+      plan_path: <% ctx().plan_path %>
+      terraform_exec: <% ctx().terraform_exec %>
 
-      input:
-        backend: <% $.backend %>
-        plan_path: <% $.plan_path %>
-        terraform_exec: <% $.terraform_exec %>
+    next:
+      - when: <% succeeded() %>
+        do:
+          - select_workspace
 
-      on-success:
-        - select_workspace
-      on-error:
-        - fail
+  select_workspace:
+    action: terraform.select_workspace
 
-    select_workspace:
-      action: terraform.select_workspace
+    input:
+      plan_path: <% ctx().plan_path %>
+      terraform_exec: <% ctx().terraform_exec %>
+      workspace: <% ctx().workspace %>
 
-      input:
-        plan_path: <% $.plan_path %>
-        terraform_exec: <% $.terraform_exec %>
-        workspace: <% $.workspace %>
+    next:
+      - when: <% succeeded() %>
+        do:
+          - plan
+      - when: <% failed() %>
+        do:
+          - create_workspace
 
-      on-success:
-        - plan
-      on-error:
-        - create_workspace
+  create_workspace:
+    action: terraform.create_workspace
 
-    create_workspace:
-      action: terraform.create_workspace
+    input:
+      plan_path: <% ctx().plan_path %>
+      terraform_exec: <% ctx().terraform_exec %>
+      workspace: <% ctx().workspace %>
 
-      input:
-        plan_path: <% $.plan_path %>
-        terraform_exec: <% $.terraform_exec %>
-        workspace: <% $.workspace %>
+    next:
+      - when: <% succeeded() %>
+        do:
+          - plan
 
-      on-success:
-        - plan
-      on-error:
-        - fail
+  plan:
+    action: terraform.plan
 
-    plan:
-      action: terraform.plan
+    input:
+      plan_path: <% ctx().plan_path %>
+      terraform_exec: <% ctx().terraform_exec %>
+      variable_dict: <% ctx().variable_dict %>
+      variable_files: <% ctx().variable_files %>
 
-      input:
-        plan_path: <% $.plan_path %>
-        terraform_exec: <% $.terraform_exec %>
-        variable_dict: <% $.variable_dict %>
-        variable_files: <% $.variable_files %>
+    next:
+      - when: <% succeeded() and not ctx().destroy %>
+        do:
+          - apply
+      - when: <% succeeded() and ctx().destroy %>
+        do:
+          - destroy
 
-      on-success:
-        - apply: <% not $.destroy %>
-        - destroy: <% $.destroy %>
-      on-error:
-        - fail
+  apply:
+    action: terraform.apply
 
-    apply:
-      action: terraform.apply
+    input:
+      plan_path: <% ctx().plan_path %>
+      terraform_exec: <% ctx().terraform_exec %>
+      variable_dict: <% ctx().variable_dict %>
+      variable_files: <% ctx().variable_files %>
 
-      input:
-        plan_path: <% $.plan_path %>
-        terraform_exec: <% $.terraform_exec %>
-        variable_dict: <% $.variable_dict %>
-        variable_files: <% $.variable_files %>
-      on-error:
-        - fail
+  destroy:
+    action: terraform.destroy
 
-    destroy:
-      action: terraform.destroy
-
-      input:
-        plan_path: <% $.plan_path %>
-        terraform_exec: <% $.terraform_exec %>
-        variable_dict: <% $.variable_dict %>
-        variable_files: <% $.variable_files %>
-      on-error:
-        - fail
+    input:
+      plan_path: <% ctx().plan_path %>
+      terraform_exec: <% ctx().terraform_exec %>
+      variable_dict: <% ctx().variable_dict %>
+      variable_files: <% ctx().variable_files %>
