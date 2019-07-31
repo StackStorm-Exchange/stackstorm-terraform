@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.2.7
+
+- Changed: Orquesta-ified the pipeline workflow
+
 ## 0.2.6
 
 - Added: variable_dict variable to pipeline workflow
