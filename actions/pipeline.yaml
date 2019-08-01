@@ -4,7 +4,7 @@ description: "A workflow that can be used as a pipeline for Terraform execution"
 enabled: true
 entry_point: "workflows/pipeline.yaml"
 
-runner_type: "mistral-v2"
+runner_type: "orquesta"
 
 parameters:
   backend:
