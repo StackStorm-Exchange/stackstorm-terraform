@@ -1,6 +1,6 @@
 # Change Log
 
-## 0.2.7
+## 0.3.0
 
 - Changed: Orquesta-ified the pipeline workflow
 
