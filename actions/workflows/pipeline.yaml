@@ -73,7 +73,7 @@ tasks:
           - destroy
 
   apply:
-    action: terraform.apply 
+    action: terraform.apply
 
     input:
       plan_path: <% ctx().plan_path %>
