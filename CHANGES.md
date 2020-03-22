@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.3.1
+
+- Added: timeout parameter to pipeline workflow allowing long running `apply` and `destroy` (above ST2 default of 600 seconds)
+
 ## 0.3.0
 
 - Changed: Orquesta-ified the pipeline workflow

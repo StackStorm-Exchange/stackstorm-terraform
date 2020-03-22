@@ -10,6 +10,7 @@ input:
   - variable_dict
   - variable_files
   - destroy
+  - timeout
 
 tasks:
   init:
@@ -79,6 +80,7 @@ tasks:
       terraform_exec: <% ctx().terraform_exec %>
       variable_dict: <% ctx().variable_dict %>
       variable_files: <% ctx().variable_files %>
+      timeout: <% ctx(timeout) %>
 
   destroy:
     action: terraform.destroy
@@ -88,3 +90,4 @@ tasks:
       terraform_exec: <% ctx().terraform_exec %>
       variable_dict: <% ctx().variable_dict %>
       variable_files: <% ctx().variable_files %>
+      timeout: <% ctx(timeout) %>
