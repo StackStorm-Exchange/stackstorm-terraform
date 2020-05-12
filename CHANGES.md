@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.3.2
+
+- Fixed: Pin `python-terraform` version to `0.10.1` in requirements.txt instead of using the develop branch. Visit
+ [this](https://github.com/StackStorm-Exchange/stackstorm-terraform/issues/18) for more details.
+
 ## 0.3.1
 
 - Added: timeout parameter to pipeline workflow allowing long running `apply` and `destroy` (above ST2 default of 600 seconds)
