@@ -1,2 +1,2 @@
--e git+https://github.com/beelit94/python-terraform.git@develop#egg=python-terraform
+python-terraform==0.10.1
 
