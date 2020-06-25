@@ -28,6 +28,10 @@ class Apply(action.TerraformBaseAction):
         self.terraform.var_file = variable_files
         self.terraform.variables = variable_dict
 
-        return_code, stdout, stderr = self.terraform.apply(plan_path, skip_plan=True, auto_approve=IsFlagged, capture_output=False)
+        return_code, stdout, stderr = self.terraform.apply(
+            plan_path,
+            skip_plan=True,
+            auto_approve=IsFlagged
+        )
 
         return self.check_result(return_code, stdout, stderr, return_output=True)

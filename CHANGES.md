@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.3.3
+
+- Fixed: Apply broken, auto_approve=True being ignored. Visit
+ [this](https://github.com/StackStorm-Exchange/stackstorm-terraform/issues/21) for more details.
+
 ## 0.3.2
 
 - Fixed: Pin `python-terraform` version to `0.10.1` in requirements.txt instead of using the develop branch. Visit
