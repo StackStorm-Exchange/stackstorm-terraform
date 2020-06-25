@@ -19,7 +19,7 @@ class Apply(action.TerraformBaseAction):
         - variable_files: array of Terraform variable files
 
         Returns:
-        - dict: Terraform apply command output
+        - dict: Terraform output command output
         """
         os.chdir(plan_path)
         self.terraform.state = state_file_path
@@ -34,4 +34,4 @@ class Apply(action.TerraformBaseAction):
             auto_approve=IsFlagged
         )
 
-        return self.check_result(return_code, stdout, stderr)
+        return self.check_result(return_code, stdout, stderr, return_output=True)

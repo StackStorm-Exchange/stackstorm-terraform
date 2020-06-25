@@ -18,7 +18,7 @@ class Plan(action.TerraformBaseAction):
         - variable_files: array of Terraform variable files
 
         Returns:
-        - dict: Terraform plan command output
+        - dict: Terraform output command output
         """
         os.chdir(plan_path)
         self.terraform.state = state_file_path
@@ -27,9 +27,6 @@ class Plan(action.TerraformBaseAction):
         self.terraform.var_file = variable_files
         self.terraform.variables = variable_dict
 
-        return_code, stdout, stderr = self.terraform.plan(plan_path)
+        return_code, stdout, stderr = self.terraform.plan(plan_path, capture_output=False)
 
-        if return_code == 2:
-            return (True, stdout + "\n" + stderr)
-        else:
-            return self.check_result(return_code, stdout, stderr)
+        return self.check_result(return_code, stdout, stderr, return_output=True, valid_return_codes=[0, 2])
