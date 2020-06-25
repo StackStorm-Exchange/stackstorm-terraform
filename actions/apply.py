@@ -1,5 +1,6 @@
 import os
 from lib import action
+from python_terraform import IsFlagged
 
 
 class Apply(action.TerraformBaseAction):
@@ -18,7 +19,7 @@ class Apply(action.TerraformBaseAction):
         - variable_files: array of Terraform variable files
 
         Returns:
-        - dict: Terraform apply command output
+        - dict: Terraform output command output
         """
         os.chdir(plan_path)
         self.terraform.state = state_file_path
@@ -27,6 +28,6 @@ class Apply(action.TerraformBaseAction):
         self.terraform.var_file = variable_files
         self.terraform.variables = variable_dict
 
-        return_code, stdout, stderr = self.terraform.apply(plan_path, auto_approve=True)
+        return_code, stdout, stderr = self.terraform.apply(plan_path, skip_plan=True, auto_approve=IsFlagged, capture_output=False)
 
-        return self.check_result(return_code, stdout, stderr)
+        return self.check_result(return_code, stdout, stderr, return_output=True)
