@@ -29,4 +29,10 @@ class Plan(action.TerraformBaseAction):
 
         return_code, stdout, stderr = self.terraform.plan(plan_path, capture_output=False)
 
-        return self.check_result(return_code, stdout, stderr, return_output=True, valid_return_codes=[0, 2])
+        return self.check_result(
+            return_code,
+            stdout,
+            stderr,
+            return_output=True,
+            valid_return_codes=[0, 2]
+        )

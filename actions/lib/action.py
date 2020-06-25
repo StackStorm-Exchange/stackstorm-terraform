@@ -12,7 +12,8 @@ class TerraformBaseAction(Action):
         super(TerraformBaseAction, self).__init__(config)
         self.terraform = Terraform()
 
-    def check_result(self, return_code, stdout, stderr, return_output=False, valid_return_codes=None):
+    def check_result(self, return_code, stdout, stderr, return_output=False,
+                     valid_return_codes=None):
         """Check the return code from the terraform action and return the output with
         the error message (if there is one)
         :param return_code: return code from the Terraform command that was run
