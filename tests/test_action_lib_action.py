@@ -61,8 +61,7 @@ class ActionTestCase(TerraformBaseActionTestCase):
         test_stderr = ""
 
         # Declare test Terraform.output return values
-        test_output = dict()
-        expected_result = (True, test_output)
+        expected_result = dict()
         mock_output.return_value = expected_result
 
         # Execute the run function
