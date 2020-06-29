@@ -3,6 +3,7 @@ from lib.action import Action
 # Using this to run tests. Otherwise get an error for no run method.
 from init import Init
 import mock
+import os
 
 
 class ActionTestCase(TerraformBaseActionTestCase):
@@ -47,12 +48,13 @@ class ActionTestCase(TerraformBaseActionTestCase):
         # Verify the results
         self.assertEqual(result, expected_result)
 
+    @mock.patch("list_workspaces.os.chdir")
     def test_check_result_success_with_output(self):
         action = self.get_action_instance({})
 
         # Set terraform variables for test
+        os.chdir("/terraform")
         action.terraform.terraform_bin_path = "/usr/bin/terraform"
-        action.terraform.working_dir = "/terraform"
 
         # Declare test input values
         test_return_code = 0
@@ -77,8 +79,8 @@ class ActionTestCase(TerraformBaseActionTestCase):
         action = self.get_action_instance({})
 
         # Set terraform variables for test
+        os.chdir("/terraform")
         action.terraform.terraform_bin_path = "/usr/bin/terraform"
-        action.terraform.working_dir = "/terraform"
 
         # Declare test input values
         test_return_code = 1
