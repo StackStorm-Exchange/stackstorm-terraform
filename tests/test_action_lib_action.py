@@ -47,7 +47,8 @@ class ActionTestCase(TerraformBaseActionTestCase):
         # Verify the results
         self.assertEqual(result, expected_result)
 
-    def test_check_result_success_with_output(self):
+    @mock.patch("lib.action.Terraform.output")
+    def test_check_result_success_with_output(self, mock_output):
         action = self.get_action_instance({})
 
         # Set terraform variables for test
@@ -59,8 +60,10 @@ class ActionTestCase(TerraformBaseActionTestCase):
         test_stdout = "Terraform has been successfully initialized!"
         test_stderr = ""
 
+        # Declare test Terraform.output return values
         test_output = dict()
         expected_result = (True, test_output)
+        mock_output.return_value = expected_result
 
         # Execute the run function
         result = action.check_result(
