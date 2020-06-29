@@ -23,7 +23,7 @@ class Destroy(action.TerraformBaseAction):
         os.chdir(plan_path)
         self.terraform.terraform_bin_path = terraform_exec
         return_code, stdout, stderr = self.terraform.destroy(
-            dir_or_plan=plan_path,
+            plan_path,
             var_file=variable_files,
             var=variable_dict,
             state=state_file_path,

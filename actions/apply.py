@@ -31,7 +31,8 @@ class Apply(action.TerraformBaseAction):
         return_code, stdout, stderr = self.terraform.apply(
             plan_path,
             skip_plan=True,
-            auto_approve=IsFlagged
+            auto_approve=IsFlagged, 
+            capture_output=False
         )
 
         return self.check_result(return_code, stdout, stderr, return_output=True)
