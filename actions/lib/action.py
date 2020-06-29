@@ -32,10 +32,9 @@ class TerraformBaseAction(Action):
         else:
             output = TerraformBaseAction.concat_std_output(stdout, stderr)
 
-        if return_code in valid_return_codes:
-            return True, output
-        else:
-            return False, output
+        # Capture success status vs valid return codes and return result
+        success = (return_code in valid_return_codes)
+        return success, output
 
     @staticmethod
     def concat_std_output(stdout, stderr):
