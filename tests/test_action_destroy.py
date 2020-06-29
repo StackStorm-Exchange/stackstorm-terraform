@@ -1,5 +1,6 @@
 from terraform_base_action_test_case import TerraformBaseActionTestCase
 from destroy import Destroy
+from python_terraform import IsFlagged
 import mock
 
 
@@ -43,7 +44,12 @@ class DestroyTestCase(TerraformBaseActionTestCase):
         self.assertEqual(result, expected_result)
         self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
         mock_chdir.assert_called_with(test_plan_path)
-        mock_destroy.assert_called_with(test_plan_path, var_file=test_variable_files,
-                                        var=test_variable_dict, state=test_state_file,
-                                        force="true")
+        mock_destroy.assert_called_with(
+            test_plan_path,
+            var_file=test_variable_files,
+            var=test_variable_dict,
+            state=test_state_file,
+            force=IsFlagged,
+            capture_output=False
+        )
         mock_check_result.assert_called_with(test_return_code, test_stdout, test_stderr)

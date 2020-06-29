@@ -48,7 +48,7 @@ class PlanTestCase(TerraformBaseActionTestCase):
         self.assertEqual(action.terraform.var_file, test_variable_files)
         self.assertEqual(action.terraform.variables, test_variable_dict)
         mock_chdir.assert_called_with(test_plan_path)
-        mock_plan.assert_called_with(test_plan_path)
+        mock_plan.assert_called_with(test_plan_path, capture_output=False)
         mock_check_result.assert_called_with(test_return_code, test_stdout, test_stderr)
 
     @mock.patch("list_workspaces.os.chdir")
@@ -87,4 +87,4 @@ class PlanTestCase(TerraformBaseActionTestCase):
         self.assertEqual(action.terraform.var_file, test_variable_files)
         self.assertEqual(action.terraform.variables, test_variable_dict)
         mock_chdir.assert_called_with(test_plan_path)
-        mock_plan.assert_called_with(test_plan_path)
+        mock_plan.assert_called_with(test_plan_path, capture_output=False)
