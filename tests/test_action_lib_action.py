@@ -49,6 +49,11 @@ class ActionTestCase(TerraformBaseActionTestCase):
 
     def test_check_result_success_with_output(self):
         action = self.get_action_instance({})
+
+        # Set terraform variables for test
+        action.terraform.terraform_bin_path = "/usr/bin/terraform"
+        action.terraform.working_dir = "/terraform"
+
         # Declare test input values
         test_return_code = 0
         test_stdout = "Terraform has been successfully initialized!"
@@ -70,6 +75,11 @@ class ActionTestCase(TerraformBaseActionTestCase):
 
     def test_check_result_fail_with_output(self):
         action = self.get_action_instance({})
+
+        # Set terraform variables for test
+        action.terraform.terraform_bin_path = "/usr/bin/terraform"
+        action.terraform.working_dir = "/terraform"
+        
         # Declare test input values
         test_return_code = 1
         test_stdout = "Initialization failed!"
