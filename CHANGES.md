@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.4.0
+
+- Added: Support for streaming output in real-time.
+- Changed: Adjustments to the result for `plan`, `apply`, `destroy`, `init`. Stdout and stderr will redirect to proper sys outputs. To be captured and set by Stackstorm properly. Return the terraform output (`terraform output`) where applicable in json/dict format to be used in subsequent actions.
+
 ## 0.3.3
 
 - Fixed: Apply broken, auto_approve=True being ignored. Visit
