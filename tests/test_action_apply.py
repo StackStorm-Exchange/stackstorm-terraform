@@ -49,7 +49,12 @@ class PlanTestCase(TerraformBaseActionTestCase):
         self.assertEqual(action.terraform.var_file, test_variable_files)
         self.assertEqual(action.terraform.variables, test_variable_dict)
         mock_chdir.assert_called_with(test_plan_path)
-        mock_apply.assert_called_with(test_plan_path, skip_plan=True, auto_approve=IsFlagged)
+        mock_apply.assert_called_with(
+            test_plan_path,
+            skip_plan=True,
+            auto_approve=IsFlagged,
+            capture_output=False
+        )
         mock_check_result.assert_called_with(
             test_return_code,
             test_stdout,

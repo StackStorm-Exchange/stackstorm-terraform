@@ -47,9 +47,11 @@ class TerraformBaseAction(Action):
         output = None
         if stderr or stdout:
             output = ''
-        if stdout:
-            output += "\n" + stdout
-        if stderr:
-            output += "\n" + stderr
+            if stdout:
+                output += stdout
+            if stderr:
+                if stdout:
+                    output += "\n"
+                output += stderr
 
         return output

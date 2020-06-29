@@ -19,10 +19,10 @@ class ActionTestCase(TerraformBaseActionTestCase):
         action = self.get_action_instance({})
         # Declare test input values
         test_return_code = 0
-        test_stdout = "\nTerraform has been successfully initialized!"
+        test_stdout = "Terraform has been successfully initialized!"
         test_stderr = ""
 
-        test_output = test_stdout + "\n" + test_stderr
+        test_output = test_stdout
         expected_result = (True, test_output)
 
         # Execute the run function
@@ -35,7 +35,7 @@ class ActionTestCase(TerraformBaseActionTestCase):
         action = self.get_action_instance({})
         # Declare test input values
         test_return_code = 1
-        test_stdout = "\nInitialization failed!"
+        test_stdout = "Initialization failed!"
         test_stderr = "Error details..."
 
         test_output = test_stdout + "\n" + test_stderr
