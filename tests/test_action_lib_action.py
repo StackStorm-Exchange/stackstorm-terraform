@@ -76,7 +76,7 @@ class ActionTestCase(TerraformBaseActionTestCase):
         test_stderr = "Error details..."
 
         test_output = None
-        expected_result = (True, test_output)
+        expected_result = (False, test_output)
 
         # Execute the run function
         result = action.check_result(
@@ -89,7 +89,7 @@ class ActionTestCase(TerraformBaseActionTestCase):
         # Verify the results
         self.assertEqual(result, expected_result)
 
-    def test_concat_std(self):
+    def test_concat_std_output(self):
         action = self.get_action_instance({})
         # Declare test input values
         test_stdout = "Initialization failed!"
