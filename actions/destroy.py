@@ -30,4 +30,4 @@ class Destroy(action.TerraformBaseAction):
             force=IsFlagged,
             capture_output=False
         )
-        return self.check_result(return_code, stdout, stderr)
+        return self.check_result(return_code, stdout, stderr, return_output=True)

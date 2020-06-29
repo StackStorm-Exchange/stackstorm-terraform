@@ -52,4 +52,9 @@ class DestroyTestCase(TerraformBaseActionTestCase):
             force=IsFlagged,
             capture_output=False
         )
-        mock_check_result.assert_called_with(test_return_code, test_stdout, test_stderr)
+        mock_check_result.assert_called_with(
+            test_return_code,
+            test_stdout,
+            test_stderr,
+            return_output=True
+        )

@@ -46,3 +46,62 @@ class ActionTestCase(TerraformBaseActionTestCase):
 
         # Verify the results
         self.assertEqual(result, expected_result)
+
+    def test_check_result_success_with_output(self):
+        action = self.get_action_instance({})
+        # Declare test input values
+        test_return_code = 0
+        test_stdout = "Terraform has been successfully initialized!"
+        test_stderr = ""
+
+        test_output = dict()
+        expected_result = (True, test_output)
+
+        # Execute the run function
+        result = action.check_result(
+            test_return_code,
+            test_stdout,
+            test_stderr,
+            return_output=True
+        )
+
+        # Verify the results
+        self.assertEqual(result, expected_result)
+
+    def test_check_result_fail_with_output(self):
+        action = self.get_action_instance({})
+        # Declare test input values
+        test_return_code = 1
+        test_stdout = "Initialization failed!"
+        test_stderr = "Error details..."
+
+        test_output = None
+        expected_result = (True, test_output)
+
+        # Execute the run function
+        result = action.check_result(
+            test_return_code,
+            test_stdout,
+            test_stderr,
+            return_output=True
+        )
+
+        # Verify the results
+        self.assertEqual(result, expected_result)
+
+    def test_concat_std(self):
+        action = self.get_action_instance({})
+        # Declare test input values
+        test_stdout = "Initialization failed!"
+        test_stderr = "Error details..."
+
+        test_output = test_stdout + "\n" + test_stderr
+
+        # Execute the run function
+        result = action.concat_std_output(
+            test_stdout,
+            test_stderr
+        )
+
+        # Verify the results
+        self.assertEqual(result, test_output)
