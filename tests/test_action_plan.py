@@ -48,12 +48,19 @@ class PlanTestCase(TerraformBaseActionTestCase):
         self.assertEqual(action.terraform.var_file, test_variable_files)
         self.assertEqual(action.terraform.variables, test_variable_dict)
         mock_chdir.assert_called_with(test_plan_path)
-        mock_plan.assert_called_with(test_plan_path)
-        mock_check_result.assert_called_with(test_return_code, test_stdout, test_stderr)
+        mock_plan.assert_called_with(test_plan_path, capture_output=False)
+        mock_check_result.assert_called_with(
+            test_return_code,
+            test_stdout,
+            test_stderr,
+            return_output=True,
+            valid_return_codes=[0, 2]
+        )
 
     @mock.patch("list_workspaces.os.chdir")
+    @mock.patch("lib.action.TerraformBaseAction.check_result")
     @mock.patch("lib.action.Terraform.plan")
-    def test_run_exit_code_2(self, mock_plan, mock_chdir):
+    def test_run_exit_code_2(self, mock_plan, mock_check_result, mock_chdir):
         action = self.get_action_instance({})
         # Declare test input values
         test_plan_path = "/terraform"
@@ -72,8 +79,8 @@ class PlanTestCase(TerraformBaseActionTestCase):
 
         mock_chdir.return_value = "success"
 
-        test_output = test_stdout + "\n" + test_stderr
-        expected_result = (True, test_output)
+        expected_result = "result"
+        mock_check_result.return_value = expected_result
 
         # Execute the run function
         result = action.run(test_plan_path, test_state_file, test_target_resources,
@@ -87,4 +94,11 @@ class PlanTestCase(TerraformBaseActionTestCase):
         self.assertEqual(action.terraform.var_file, test_variable_files)
         self.assertEqual(action.terraform.variables, test_variable_dict)
         mock_chdir.assert_called_with(test_plan_path)
-        mock_plan.assert_called_with(test_plan_path)
+        mock_plan.assert_called_with(test_plan_path, capture_output=False)
+        mock_check_result.assert_called_with(
+            test_return_code,
+            test_stdout,
+            test_stderr,
+            return_output=True,
+            valid_return_codes=[0, 2]
+        )

@@ -40,5 +40,9 @@ class InitTestCase(TerraformBaseActionTestCase):
         self.assertEqual(result, expected_result)
         self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
         mock_chdir.assert_called_with(test_plan_path)
-        mock_init.assert_called_with(test_plan_path, backend_config=test_backend)
+        mock_init.assert_called_with(
+            test_plan_path,
+            backend_config=test_backend,
+            capture_output=False
+        )
         mock_check_result.assert_called_with(test_return_code, test_stdout, test_stderr)
