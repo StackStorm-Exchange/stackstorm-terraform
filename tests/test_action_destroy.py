@@ -20,6 +20,7 @@ class DestroyTestCase(TerraformBaseActionTestCase):
         # Declare test input values
         test_plan_path = "/terraform"
         test_state_file = "/terraform/terraform.tfstate"
+        test_target_resources = ["module.resource"]
         test_terraform_exec = "/usr/bin/terraform"
         test_variable_dict = {'key1': 'value1', 'key2': 'value2'}
         test_variable_files = ["/terraform/test.tfvars"]
@@ -37,11 +38,12 @@ class DestroyTestCase(TerraformBaseActionTestCase):
         mock_chdir.return_value = "success"
 
         # Execute the run function
-        result = action.run(test_plan_path, test_state_file, test_terraform_exec,
-                            test_variable_dict, test_variable_files)
+        result = action.run(test_plan_path, test_state_file, test_target_resources,
+                            test_terraform_exec, test_variable_dict, test_variable_files)
 
         # Verify the results
         self.assertEqual(result, expected_result)
+        self.assertEqual(action.terraform.targets, test_target_resources)
         self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
         mock_chdir.assert_called_with(test_plan_path)
         mock_destroy.assert_called_with(
