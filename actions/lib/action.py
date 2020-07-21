@@ -28,7 +28,10 @@ class TerraformBaseAction(Action):
         if return_output:
             output = None
             if return_code in valid_return_codes:
-                output = self.terraform.output()
+                if self.terraform.state is not None:
+                    output = self.terraform.output(state=self.terraform.state)
+                else:
+                    output = self.terraform.output()
         else:
             output = TerraformBaseAction.concat_std_output(stdout, stderr)
 
