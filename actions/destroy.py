@@ -4,7 +4,7 @@ from python_terraform import IsFlagged
 
 
 class Destroy(action.TerraformBaseAction):
-    def run(self, plan_path, state_file_path, terraform_exec,
+    def run(self, plan_path, state_file_path, target_resources, terraform_exec,
             variable_dict, variable_files):
         """
         Destroy Terraform managed infrastructure
@@ -12,6 +12,7 @@ class Destroy(action.TerraformBaseAction):
         Args:
         - plan_path: path of the Terraform files
         - state_file_path: path of the Terraform state file
+        - target_resources: list of resources to target from the configuration
         - terraform_exec: path of the Terraform bin
         - variable_dict: dictionary of Terraform variables that will overwrite the
             variable files if both are declared
@@ -22,6 +23,7 @@ class Destroy(action.TerraformBaseAction):
         """
         os.chdir(plan_path)
         self.terraform.terraform_bin_path = terraform_exec
+        self.terraform.targets = target_resources
         return_code, stdout, stderr = self.terraform.destroy(
             plan_path,
             var_file=variable_files,
