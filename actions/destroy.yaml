@@ -1,7 +1,7 @@
 ---
 name: "destroy"
 runner_type: "python-script"
-description: "Destroy the Terraform managed infrastructure"
+description: "Destroy the Terraform managed infrastructure. Reminder, if you do NOT specify target_resources this will delete your entire managed infrastructure."
 enabled: true
 entry_point: "destroy.py"
 parameters:

@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.5.0
+
+- Added: Support for targeting resources on the `destroy` action.
+
 ## 0.4.0
 
 - Added: Support for streaming output in real-time.
