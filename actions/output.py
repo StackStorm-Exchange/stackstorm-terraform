@@ -3,7 +3,7 @@ from lib import action
 
 
 class Output(action.TerraformBaseAction):
-    def run(self, plan_path, terraform_exec):
+    def run(self, plan_path, state_file_path, terraform_exec):
         """
         Output output variables from the state file.
 
@@ -16,4 +16,4 @@ class Output(action.TerraformBaseAction):
         """
         os.chdir(plan_path)
         self.terraform.terraform_bin_path = terraform_exec
-        return self.terraform.output()
+        return self.terraform.output(state=state_file_path)
