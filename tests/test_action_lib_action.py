@@ -105,7 +105,7 @@ class ActionTestCase(TerraformBaseActionTestCase):
 
         # Verify the results
         self.assertEqual(result, expected_result)
-        mock_output.assert_called_once()
+        mock_output.assert_called_with(state=None)
 
     def test_check_result_fail_with_output(self):
         action = self.get_action_instance({})

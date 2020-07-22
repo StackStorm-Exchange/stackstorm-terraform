@@ -2,6 +2,7 @@
 
 ## 0.4.1
 - Fixed: Passed tfstate file to output function in lib/action.py to retrieve outputs on any tfstate file instead of only terraform.tfstate
+- Added: Parameter for defining state file in output action
 
 ## 0.4.0
 
