@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.5.1
+
+- Release to force new tags since 0.5.0 is broken
+
+  Contributed by Nick Maludy (@nmaludy, Encore Technologies)
+
 ## 0.5.0
 
 - Added: Support for targeting resources on the `destroy` action.
