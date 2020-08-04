@@ -1,5 +1,6 @@
 from terraform_base_action_test_case import TerraformBaseActionTestCase
 from init import Init
+from python_terraform import IsFlagged, IsNotFlagged
 import mock
 
 
@@ -14,12 +15,13 @@ class InitTestCase(TerraformBaseActionTestCase):
     @mock.patch("list_workspaces.os.chdir")
     @mock.patch("lib.action.TerraformBaseAction.check_result")
     @mock.patch("lib.action.Terraform.init")
-    def test_run(self, mock_init, mock_check_result, mock_chdir):
+    def test_run_upgrade_false(self, mock_init, mock_check_result, mock_chdir):
         action = self.get_action_instance({})
         # Declare test input values
         test_plan_path = "/terraform"
         test_terraform_exec = "/usr/bin/terraform"
         test_backend = {'path': '/terraform/terraform.tfstate'}
+        test_upgrade = False
 
         # Declare test Terraform.init return values
         test_return_code = 0
@@ -34,7 +36,7 @@ class InitTestCase(TerraformBaseActionTestCase):
         mock_check_result.return_value = expected_result
 
         # Execute the run function
-        result = action.run(test_plan_path, test_terraform_exec, test_backend)
+        result = action.run(test_plan_path, test_terraform_exec, test_backend, test_upgrade)
 
         # Verify the results
         self.assertEqual(result, expected_result)
@@ -43,6 +45,83 @@ class InitTestCase(TerraformBaseActionTestCase):
         mock_init.assert_called_with(
             test_plan_path,
             backend_config=test_backend,
-            capture_output=False
+            capture_output=False,
+            upgrade=IsNotFlagged
+        )
+        mock_check_result.assert_called_with(test_return_code, test_stdout, test_stderr)
+
+    @mock.patch("list_workspaces.os.chdir")
+    @mock.patch("lib.action.TerraformBaseAction.check_result")
+    @mock.patch("lib.action.Terraform.init")
+    def test_run_upgrade_true(self, mock_init, mock_check_result, mock_chdir):
+        action = self.get_action_instance({})
+        # Declare test input values
+        test_plan_path = "/terraform"
+        test_terraform_exec = "/usr/bin/terraform"
+        test_backend = {'path': '/terraform/terraform.tfstate'}
+        test_upgrade = True
+
+        # Declare test Terraform.init return values
+        test_return_code = 0
+        test_stdout = "Terraform has been successfully initialized!"
+        test_stderr = ""
+
+        mock_init.return_value = test_return_code, test_stdout, test_stderr
+
+        mock_chdir.return_value = "success"
+
+        expected_result = "result"
+        mock_check_result.return_value = expected_result
+
+        # Execute the run function
+        result = action.run(test_plan_path, test_terraform_exec, test_backend, test_upgrade)
+
+        # Verify the results
+        self.assertEqual(result, expected_result)
+        self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
+        mock_chdir.assert_called_with(test_plan_path)
+        mock_init.assert_called_with(
+            test_plan_path,
+            backend_config=test_backend,
+            capture_output=False,
+            upgrade=IsFlagged
+        )
+        mock_check_result.assert_called_with(test_return_code, test_stdout, test_stderr)
+
+    @mock.patch("list_workspaces.os.chdir")
+    @mock.patch("lib.action.TerraformBaseAction.check_result")
+    @mock.patch("lib.action.Terraform.init")
+    def test_run_upgrade_none(self, mock_init, mock_check_result, mock_chdir):
+        action = self.get_action_instance({})
+        # Declare test input values
+        test_plan_path = "/terraform"
+        test_terraform_exec = "/usr/bin/terraform"
+        test_backend = {'path': '/terraform/terraform.tfstate'}
+        test_upgrade = None
+
+        # Declare test Terraform.init return values
+        test_return_code = 0
+        test_stdout = "Terraform has been successfully initialized!"
+        test_stderr = ""
+
+        mock_init.return_value = test_return_code, test_stdout, test_stderr
+
+        mock_chdir.return_value = "success"
+
+        expected_result = "result"
+        mock_check_result.return_value = expected_result
+
+        # Execute the run function
+        result = action.run(test_plan_path, test_terraform_exec, test_backend, test_upgrade)
+
+        # Verify the results
+        self.assertEqual(result, expected_result)
+        self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
+        mock_chdir.assert_called_with(test_plan_path)
+        mock_init.assert_called_with(
+            test_plan_path,
+            backend_config=test_backend,
+            capture_output=False,
+            upgrade=IsNotFlagged
         )
         mock_check_result.assert_called_with(test_return_code, test_stdout, test_stderr)
