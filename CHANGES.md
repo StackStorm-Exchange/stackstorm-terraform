@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.5.2
+
+- Added: upgrade option to `init` action
+
 ## 0.5.1
 
 - Release to force new tags since 0.5.0 is broken

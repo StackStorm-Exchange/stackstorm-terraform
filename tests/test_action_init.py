@@ -1,5 +1,6 @@
 from terraform_base_action_test_case import TerraformBaseActionTestCase
 from init import Init
+from python_terraform import IsFlagged, IsNotFlagged
 import mock
 
 
@@ -20,6 +21,7 @@ class InitTestCase(TerraformBaseActionTestCase):
         test_plan_path = "/terraform"
         test_terraform_exec = "/usr/bin/terraform"
         test_backend = {'path': '/terraform/terraform.tfstate'}
+        test_upgrade = True
 
         # Declare test Terraform.init return values
         test_return_code = 0
@@ -34,7 +36,7 @@ class InitTestCase(TerraformBaseActionTestCase):
         mock_check_result.return_value = expected_result
 
         # Execute the run function
-        result = action.run(test_plan_path, test_terraform_exec, test_backend)
+        result = action.run(test_plan_path, test_terraform_exec, test_backend, test_upgrade)
 
         # Verify the results
         self.assertEqual(result, expected_result)
@@ -43,6 +45,7 @@ class InitTestCase(TerraformBaseActionTestCase):
         mock_init.assert_called_with(
             test_plan_path,
             backend_config=test_backend,
-            capture_output=False
+            capture_output=False,
+            upgrade=IsFlagged if test_upgrade else IsNotFlagged
         )
         mock_check_result.assert_called_with(test_return_code, test_stdout, test_stderr)

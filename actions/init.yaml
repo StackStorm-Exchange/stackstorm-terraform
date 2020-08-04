@@ -18,3 +18,7 @@ parameters:
     description: "Terraform executable path (default: terraform in the $PATH)"
     required: false
     default: "terraform"
+  upgrade:
+    type: "boolean"
+    description: "Run init with -upgrade option"
+    required: false
