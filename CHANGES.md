@@ -1,5 +1,8 @@
 # Change Log
 
+## 1.1.0
+* Added: Results as output to pipeline action.
+
 ## 1.0.0
 
 * Drop Python 2.7 support

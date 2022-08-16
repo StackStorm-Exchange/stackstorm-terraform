@@ -5,7 +5,7 @@ runner_type: "python-script"
 description: Terraform integrations
 keywords:
   - terraform
-version: 1.0.0
+version: 1.1.0
 author: Martez Reed
 email: martez.reed@greenreedtech.com
 python_versions:

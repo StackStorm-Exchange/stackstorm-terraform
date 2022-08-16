@@ -12,6 +12,12 @@ input:
   - destroy
   - timeout
 
+vars:
+  - results: {}
+
+output:
+  - results: <% ctx().apply_result %>
+
 tasks:
   init:
     action: terraform.init
@@ -81,6 +87,10 @@ tasks:
       variable_dict: <% ctx().variable_dict %>
       variable_files: <% ctx().variable_files %>
       timeout: <% ctx(timeout) %>
+    next:
+      - when: <% succeeded() %>
+        publish:
+          - results: <% result().result %>
 
   destroy:
     action: terraform.destroy
@@ -91,3 +101,7 @@ tasks:
       variable_dict: <% ctx().variable_dict %>
       variable_files: <% ctx().variable_files %>
       timeout: <% ctx(timeout) %>
+    next:
+      - when: <% succeeded() %>
+        publish:
+          - results: <% result().result %>
