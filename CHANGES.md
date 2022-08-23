@@ -1,5 +1,8 @@
 # Change Log
 
+## 1.1.1
+* Bugfix: Invalid variable name in output.
+
 ## 1.1.0
 * Added: Results as output to pipeline action.
 

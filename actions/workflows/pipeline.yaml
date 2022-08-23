@@ -16,7 +16,7 @@ vars:
   - results: {}
 
 output:
-  - results: <% ctx().apply_result %>
+  - results: <% ctx().results %>
 
 tasks:
   init:
