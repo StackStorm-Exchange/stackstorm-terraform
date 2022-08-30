@@ -1,2 +1,2 @@
-python-terraform==0.10.1
+dda-python-terraform==2.0.1
 

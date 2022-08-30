@@ -1,6 +1,6 @@
 from terraform_base_action_test_case import TerraformBaseActionTestCase
 from destroy import Destroy
-from python_terraform import IsFlagged
+from dda_python_terraform import IsFlagged
 import mock
 
 

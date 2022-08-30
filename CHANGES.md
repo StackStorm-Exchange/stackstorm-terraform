@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.0.0
+* Moving to newer dda_python_terraform library! (This will allow support for terraform > 0.14)
+* Utilize version and set semantic_version within the library after being initialized for each action
+
 ## 1.1.1
 * Bugfix: Invalid variable name in output.
 

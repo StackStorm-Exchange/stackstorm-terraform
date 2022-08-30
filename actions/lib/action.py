@@ -1,11 +1,11 @@
 from st2common.runners.base_action import Action
-from python_terraform import Terraform
-
+from dda_python_terraform import Terraform
+import json
 
 class TerraformBaseAction(Action):
     def __init__(self, config):
         """Creates a new BaseAction given a StackStorm config object (kwargs works too)
-        Also stores the Terraform class from python_terraform in a class variable
+        Also stores the Terraform class from dda_python_terraform in a class variable
         :param config: StackStorm configuration object for the pack
         :returns: a new BaseAction
         """
@@ -35,6 +35,16 @@ class TerraformBaseAction(Action):
         # Capture success status vs valid return codes and return result
         success = (return_code in valid_return_codes)
         return success, output
+
+    def set_semantic_version(self):
+        """Set the semantic version string on the dda terraform library.
+        This is called with each action in case the different exec is
+        set.
+        """
+        # Get the verison of terraform
+        _, stdout, _ = self.terraform.version(json=True)
+        version = json.loads(stdout)['terraform_version']
+        self.terraform.terraform_semantic_version = version
 
     @staticmethod
     def concat_std_output(stdout, stderr):

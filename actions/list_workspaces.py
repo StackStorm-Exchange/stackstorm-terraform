@@ -1,5 +1,6 @@
 import os
 from lib import action
+from dda_python_terraform.terraform import TerraformCommandError
 
 
 class ListWorkspaces(action.TerraformBaseAction):
@@ -16,6 +17,7 @@ class ListWorkspaces(action.TerraformBaseAction):
         """
         os.chdir(plan_path)
         self.terraform.terraform_bin_path = terraform_exec
-        return_code, stdout, stderr = self.terraform.workspace("list")
+        self.set_semantic_version()
+        return_code, stdout, stderr = self.terraform.workspace("list", raise_on_error=False)
 
         return self.check_result(return_code, stdout, stderr)

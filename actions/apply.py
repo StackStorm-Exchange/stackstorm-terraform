@@ -1,7 +1,7 @@
 import os
 from lib import action
-from python_terraform import IsFlagged
-
+from dda_python_terraform import IsFlagged
+from dda_python_terraform.terraform import TerraformCommandError
 
 class Apply(action.TerraformBaseAction):
     def run(self, plan_path, state_file_path, target_resources, terraform_exec,
@@ -22,6 +22,7 @@ class Apply(action.TerraformBaseAction):
         - dict: Terraform output command output
         """
         os.chdir(plan_path)
+        self.set_semantic_version()
         self.terraform.state = state_file_path
         self.terraform.targets = target_resources
         self.terraform.terraform_bin_path = terraform_exec
@@ -32,7 +33,7 @@ class Apply(action.TerraformBaseAction):
             plan_path,
             skip_plan=True,
             auto_approve=IsFlagged,
-            capture_output=False
+            capture_output=False,
+            raise_on_error=False
         )
-
         return self.check_result(return_code, stdout, stderr, return_output=True)

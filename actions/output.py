@@ -16,4 +16,5 @@ class Output(action.TerraformBaseAction):
         """
         os.chdir(plan_path)
         self.terraform.terraform_bin_path = terraform_exec
+        self.set_semantic_version()
         return self.terraform.output(state=state_file_path)
