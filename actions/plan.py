@@ -1,5 +1,6 @@
 import os
 from lib import action
+from dda_python_terraform.terraform import TerraformCommandError
 
 
 class Plan(action.TerraformBaseAction):
@@ -26,8 +27,10 @@ class Plan(action.TerraformBaseAction):
         self.terraform.terraform_bin_path = terraform_exec
         self.terraform.var_file = variable_files
         self.terraform.variables = variable_dict
-
-        return_code, stdout, stderr = self.terraform.plan(plan_path, capture_output=False)
+        self.set_semantic_version()
+        return_code, stdout, stderr = self.terraform.plan(plan_path,
+        capture_output=False,
+        raise_on_error=False)
 
         return self.check_result(
             return_code,

@@ -1,5 +1,5 @@
 from terraform_base_action_test_case import TerraformBaseActionTestCase
-from python_terraform import IsFlagged
+from dda_python_terraform import IsFlagged
 from apply import Apply
 import mock
 

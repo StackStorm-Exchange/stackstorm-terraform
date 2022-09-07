@@ -1,6 +1,6 @@
 from terraform_base_action_test_case import TerraformBaseActionTestCase
 from init import Init
-from python_terraform import IsFlagged, IsNotFlagged
+from dda_python_terraform import IsFlagged, IsNotFlagged
 import mock
 
 
