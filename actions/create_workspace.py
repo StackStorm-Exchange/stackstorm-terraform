@@ -1,6 +1,5 @@
 import os
 from lib import action
-from dda_python_terraform.terraform import TerraformCommandError
 
 
 class CreateWorkspace(action.TerraformBaseAction):

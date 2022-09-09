@@ -1,7 +1,6 @@
 import os
 from lib import action
 from dda_python_terraform import IsFlagged
-from dda_python_terraform.terraform import TerraformCommandError
 
 class Destroy(action.TerraformBaseAction):
     def run(self, plan_path, state_file_path, target_resources, terraform_exec,
