@@ -24,9 +24,11 @@ class Import(action.TerraformBaseAction):
         os.chdir(plan_path)
         self.terraform.terraform_bin_path = terraform_exec
         self.set_semantic_version()
-        return_code, stdout, stderr = self.terraform.import_cmd(resource_name, hypervisor_object,
-                                                                state=state_file_path,
-                                                                var_file=variable_files,
-                                                                var=variable_dict,
-                                                                raise_on_error=False)
+        return_code, stdout, stderr = self.terraform.import_cmd(
+            resource_name,
+            hypervisor_object,
+            state=state_file_path,
+            var_file=variable_files,
+            var=variable_dict,
+            raise_on_error=False)
         return self.check_result(return_code, stdout, stderr)

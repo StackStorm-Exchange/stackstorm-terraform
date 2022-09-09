@@ -27,9 +27,10 @@ class Plan(action.TerraformBaseAction):
         self.terraform.var_file = variable_files
         self.terraform.variables = variable_dict
         self.set_semantic_version()
-        return_code, stdout, stderr = self.terraform.plan(plan_path,
-        capture_output=False,
-        raise_on_error=False)
+        return_code, stdout, stderr = self.terraform.plan(
+            plan_path,
+            capture_output=False,
+            raise_on_error=False)
 
         return self.check_result(
             return_code,

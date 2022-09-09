@@ -13,8 +13,8 @@ class Destroy(action.TerraformBaseAction):
         - state_file_path: path of the Terraform state file
         - target_resources: list of resources to target from the configuration
         - terraform_exec: path of the Terraform bin
-        - variable_dict: dictionary of Terraform variables that will overwrite the
-            variable files if both are declared
+        - variable_dict: dictionary of Terraform variables that will overwrite
+            the variable files if both are declared
         - variable_files: array of Terraform variable files
 
         Returns:
@@ -34,4 +34,8 @@ class Destroy(action.TerraformBaseAction):
             raise_on_error=False
         )
 
-        return self.check_result(return_code, stdout, stderr, return_output=True)
+        return self.check_result(
+            return_code,
+            stdout,
+            stderr,
+            return_output=True)

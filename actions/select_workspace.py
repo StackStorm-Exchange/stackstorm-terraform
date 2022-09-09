@@ -18,6 +18,9 @@ class SelectWorkspace(action.TerraformBaseAction):
         os.chdir(plan_path)
         self.terraform.terraform_bin_path = terraform_exec
         self.set_semantic_version()
-        return_code, stdout, stderr = self.terraform.workspace("select", workspace,
-                                            '-no-color', raise_on_error=False)
+        return_code, stdout, stderr = self.terraform.workspace(
+            "select",
+            workspace,
+            '-no-color',
+            raise_on_error=False)
         return self.check_result(return_code, stdout, stderr)
