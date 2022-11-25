@@ -22,12 +22,12 @@ class Apply(action.TerraformBaseAction):
         - dict: Terraform output command output
         """
         os.chdir(plan_path)
-        self.set_semantic_version()
         self.terraform.state = state_file_path
         self.terraform.targets = target_resources
         self.terraform.terraform_bin_path = terraform_exec
         self.terraform.var_file = variable_files
         self.terraform.variables = variable_dict
+        self.set_semantic_version()
 
         return_code, stdout, stderr = self.terraform.apply(
             plan_path,
