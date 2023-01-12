@@ -17,12 +17,11 @@ class Init(action.TerraformBaseAction):
         Returns:
         - dict: Terraform init command output
         """
-        os.chdir(plan_path)
+        self.terraform.working_dir = plan_path
         self.terraform.terraform_bin_path = terraform_exec
         self.set_semantic_version()
 
         return_code, stdout, stderr = self.terraform.init(
-            plan_path,
             backend_config=backend,
             capture_output=False,
             upgrade=IsFlagged if upgrade else IsNotFlagged,
