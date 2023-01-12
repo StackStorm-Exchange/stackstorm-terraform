@@ -1,6 +1,6 @@
 import os
 from lib import action
-from dda_python_terraform import IsFlagged
+from dda_python_terraform import IsFlagged, IsNotFlagged
 
 
 class Destroy(action.TerraformBaseAction):
@@ -21,16 +21,16 @@ class Destroy(action.TerraformBaseAction):
         Returns:
         - dict: Terraform destroy command output
         """
-        os.chdir(plan_path)
+        self.terraform.working_dir = plan_path
         self.terraform.terraform_bin_path = terraform_exec
         self.set_semantic_version()
         self.terraform.targets = target_resources
         return_code, stdout, stderr = self.terraform.destroy(
-            plan_path,
             var_file=variable_files,
             var=variable_dict,
             state=state_file_path,
-            force=IsFlagged,
+            force=IsNotFlagged,
+            auto_approve=IsFlagged,
             capture_output=False,
             raise_on_error=False
         )
