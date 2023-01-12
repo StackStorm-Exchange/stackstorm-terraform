@@ -12,7 +12,6 @@ class InitTestCase(TerraformBaseActionTestCase):
         action = self.get_action_instance({})
         self.assertIsInstance(action, Init)
 
-    @mock.patch("list_workspaces.os.chdir")
     @mock.patch("lib.action.TerraformBaseAction.check_result")
     @mock.patch("lib.action.Terraform.init")
     def test_run_upgrade_false(self, mock_init, mock_check_result, mock_chdir):
@@ -50,7 +49,6 @@ class InitTestCase(TerraformBaseActionTestCase):
         )
         mock_check_result.assert_called_with(test_return_code, test_stdout, test_stderr)
 
-    @mock.patch("list_workspaces.os.chdir")
     @mock.patch("lib.action.TerraformBaseAction.check_result")
     @mock.patch("lib.action.Terraform.init")
     def test_run_upgrade_true(self, mock_init, mock_check_result, mock_chdir):
@@ -88,7 +86,6 @@ class InitTestCase(TerraformBaseActionTestCase):
         )
         mock_check_result.assert_called_with(test_return_code, test_stdout, test_stderr)
 
-    @mock.patch("list_workspaces.os.chdir")
     @mock.patch("lib.action.TerraformBaseAction.check_result")
     @mock.patch("lib.action.Terraform.init")
     def test_run_upgrade_none(self, mock_init, mock_check_result, mock_chdir):

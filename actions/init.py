@@ -1,4 +1,3 @@
-import os
 from lib import action
 from dda_python_terraform import IsFlagged, IsNotFlagged
 

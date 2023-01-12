@@ -12,7 +12,6 @@ class PlanTestCase(TerraformBaseActionTestCase):
         action = self.get_action_instance({})
         self.assertIsInstance(action, Apply)
 
-    @mock.patch("list_workspaces.os.chdir")
     @mock.patch("lib.action.TerraformBaseAction.check_result")
     @mock.patch("lib.action.Terraform.apply")
     def test_run(self, mock_apply, mock_check_result, mock_chdir):
@@ -50,7 +49,6 @@ class PlanTestCase(TerraformBaseActionTestCase):
         self.assertEqual(action.terraform.variables, test_variable_dict)
         mock_chdir.assert_called_with(test_plan_path)
         mock_apply.assert_called_with(
-            test_plan_path,
             skip_plan=True,
             auto_approve=IsFlagged,
             capture_output=False

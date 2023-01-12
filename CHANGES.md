@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.0.2
+* Resolved issue #41, replaced os.chdir(plan_path) with self.terraform.working_dir = plan_path. This stopped the -chrdir error from occuring on the init, plan, apply and destroy actions
+* Updated the destroy action to fix the deprecation of the -force flag and use the auto_approve flag.
+
 ## 2.0.1
 * Fixed: apply for non default terraform binary path
 
