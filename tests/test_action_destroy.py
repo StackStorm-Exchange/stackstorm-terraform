@@ -12,9 +12,10 @@ class DestroyTestCase(TerraformBaseActionTestCase):
         action = self.get_action_instance({})
         self.assertIsInstance(action, Destroy)
 
+    @mock.patch("lib.action.TerraformBaseAction.set_semantic_version")
     @mock.patch("lib.action.TerraformBaseAction.check_result")
     @mock.patch("lib.action.Terraform.destroy")
-    def test_run(self, mock_destroy, mock_check_result):
+    def test_run(self, mock_destroy, mock_check_result, mock_version):
         action = self.get_action_instance({})
         # Declare test input values
         test_plan_path = "/terraform"
@@ -29,6 +30,7 @@ class DestroyTestCase(TerraformBaseActionTestCase):
         test_stdout = "Object successfully destroyed!"
         test_stderr = ""
 
+        mock_version.return_value = '1.1.1'
         mock_destroy.return_value = test_return_code, test_stdout, test_stderr
 
         expected_result = "result"

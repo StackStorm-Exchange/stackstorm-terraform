@@ -11,9 +11,10 @@ class SelectWorkspaceTestCase(TerraformBaseActionTestCase):
         action = self.get_action_instance({})
         self.assertIsInstance(action, SelectWorkspace)
 
+    @mock.patch("lib.action.TerraformBaseAction.set_semantic_version")
     @mock.patch("lib.action.TerraformBaseAction.check_result")
     @mock.patch("lib.action.Terraform.__getattr__")
-    def test_run(self, mock_workspace, mock_check_result):
+    def test_run(self, mock_workspace, mock_check_result, mock_version):
         action = self.get_action_instance({})
         # Declare test input values
         test_plan_path = "/terraform"
@@ -25,6 +26,7 @@ class SelectWorkspaceTestCase(TerraformBaseActionTestCase):
         test_stdout = "Terraform has been successfully initialized!"
         test_stderr = ""
 
+        mock_version.return_value = '1.1.1'
         action.terraform.workspace.return_value = test_return_code, test_stdout, test_stderr
 
         expected_result = "result"

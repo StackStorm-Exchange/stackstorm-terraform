@@ -12,9 +12,10 @@ class PlanTestCase(TerraformBaseActionTestCase):
         action = self.get_action_instance({})
         self.assertIsInstance(action, Apply)
 
+    @mock.patch("lib.action.TerraformBaseAction.set_semantic_version")
     @mock.patch("lib.action.TerraformBaseAction.check_result")
     @mock.patch("lib.action.Terraform.apply")
-    def test_run(self, mock_apply, mock_check_result):
+    def test_run(self, mock_apply, mock_check_result, mock_version):
         action = self.get_action_instance({})
         # Declare test input values
         test_plan_path = "/terraform"
@@ -29,6 +30,7 @@ class PlanTestCase(TerraformBaseActionTestCase):
         test_stdout = "Terraform has been successfully initialized!"
         test_stderr = ""
 
+        mock_version.return_value = '1.1.1'
         mock_apply.return_value = test_return_code, test_stdout, test_stderr
 
         expected_result = "result"
