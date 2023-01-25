@@ -1,4 +1,3 @@
-import os
 from lib import action
 from dda_python_terraform import IsFlagged
 
@@ -21,7 +20,7 @@ class Apply(action.TerraformBaseAction):
         Returns:
         - dict: Terraform output command output
         """
-        os.chdir(plan_path)
+        self.terraform.working_dir = plan_path
         self.terraform.state = state_file_path
         self.terraform.targets = target_resources
         self.terraform.terraform_bin_path = terraform_exec
@@ -30,7 +29,6 @@ class Apply(action.TerraformBaseAction):
         self.set_semantic_version()
 
         return_code, stdout, stderr = self.terraform.apply(
-            plan_path,
             skip_plan=True,
             auto_approve=IsFlagged,
             capture_output=False,
