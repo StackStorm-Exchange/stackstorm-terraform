@@ -11,7 +11,6 @@ class PlanTestCase(TerraformBaseActionTestCase):
         action = self.get_action_instance({})
         self.assertIsInstance(action, Plan)
 
-    @mock.patch("list_workspaces.os.chdir")
     @mock.patch("lib.action.TerraformBaseAction.check_result")
     @mock.patch("lib.action.Terraform.plan")
     def test_run(self, mock_plan, mock_check_result, mock_chdir):
@@ -57,7 +56,6 @@ class PlanTestCase(TerraformBaseActionTestCase):
             valid_return_codes=[0, 2]
         )
 
-    @mock.patch("list_workspaces.os.chdir")
     @mock.patch("lib.action.TerraformBaseAction.check_result")
     @mock.patch("lib.action.Terraform.plan")
     def test_run_exit_code_2(self, mock_plan, mock_check_result, mock_chdir):

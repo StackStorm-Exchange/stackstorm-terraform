@@ -12,7 +12,6 @@ class InitTestCase(TerraformBaseActionTestCase):
         action = self.get_action_instance({})
         self.assertIsInstance(action, Init)
 
-    @mock.patch("list_workspaces.os.chdir")
     @mock.patch("lib.action.TerraformBaseAction.check_result")
     @mock.patch("lib.action.Terraform.init")
     def test_run_upgrade_false(self, mock_init, mock_check_result, mock_chdir):
@@ -43,14 +42,12 @@ class InitTestCase(TerraformBaseActionTestCase):
         self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
         mock_chdir.assert_called_with(test_plan_path)
         mock_init.assert_called_with(
-            test_plan_path,
             backend_config=test_backend,
             capture_output=False,
             upgrade=IsNotFlagged
         )
         mock_check_result.assert_called_with(test_return_code, test_stdout, test_stderr)
 
-    @mock.patch("list_workspaces.os.chdir")
     @mock.patch("lib.action.TerraformBaseAction.check_result")
     @mock.patch("lib.action.Terraform.init")
     def test_run_upgrade_true(self, mock_init, mock_check_result, mock_chdir):
@@ -81,14 +78,12 @@ class InitTestCase(TerraformBaseActionTestCase):
         self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
         mock_chdir.assert_called_with(test_plan_path)
         mock_init.assert_called_with(
-            test_plan_path,
             backend_config=test_backend,
             capture_output=False,
             upgrade=IsFlagged
         )
         mock_check_result.assert_called_with(test_return_code, test_stdout, test_stderr)
 
-    @mock.patch("list_workspaces.os.chdir")
     @mock.patch("lib.action.TerraformBaseAction.check_result")
     @mock.patch("lib.action.Terraform.init")
     def test_run_upgrade_none(self, mock_init, mock_check_result, mock_chdir):
@@ -119,7 +114,6 @@ class InitTestCase(TerraformBaseActionTestCase):
         self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
         mock_chdir.assert_called_with(test_plan_path)
         mock_init.assert_called_with(
-            test_plan_path,
             backend_config=test_backend,
             capture_output=False,
             upgrade=IsNotFlagged
