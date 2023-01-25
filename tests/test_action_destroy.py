@@ -12,10 +12,9 @@ class DestroyTestCase(TerraformBaseActionTestCase):
         action = self.get_action_instance({})
         self.assertIsInstance(action, Destroy)
 
-    @mock.patch("destroy.os.chdir")
     @mock.patch("lib.action.TerraformBaseAction.check_result")
     @mock.patch("lib.action.Terraform.destroy")
-    def test_run(self, mock_destroy, mock_check_result, mock_chdir):
+    def test_run(self, mock_destroy, mock_check_result):
         action = self.get_action_instance({})
         # Declare test input values
         test_plan_path = "/terraform"
@@ -35,8 +34,6 @@ class DestroyTestCase(TerraformBaseActionTestCase):
         expected_result = "result"
         mock_check_result.return_value = expected_result
 
-        mock_chdir.return_value = "success"
-
         # Execute the run function
         result = action.run(test_plan_path, test_state_file, test_target_resources,
                             test_terraform_exec, test_variable_dict, test_variable_files)
@@ -45,7 +42,6 @@ class DestroyTestCase(TerraformBaseActionTestCase):
         self.assertEqual(result, expected_result)
         self.assertEqual(action.terraform.targets, test_target_resources)
         self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
-        mock_chdir.assert_called_with(test_plan_path)
         mock_destroy.assert_called_with(
             test_plan_path,
             var_file=test_variable_files,

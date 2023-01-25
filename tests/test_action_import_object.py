@@ -11,10 +11,9 @@ class DestroyTestCase(TerraformBaseActionTestCase):
         action = self.get_action_instance({})
         self.assertIsInstance(action, Import)
 
-    @mock.patch("destroy.os.chdir")
     @mock.patch("lib.action.TerraformBaseAction.check_result")
     @mock.patch("lib.action.Terraform.__getattr__")
-    def test_run(self, mock_import_cmd, mock_check_result, mock_chdir):
+    def test_run(self, mock_import_cmd, mock_check_result):
         action = self.get_action_instance({})
         # Declare test input values
         test_hypervisor_object = '/dc.name/vm/folder/vm.name'
@@ -36,8 +35,6 @@ class DestroyTestCase(TerraformBaseActionTestCase):
         expected_result = "result"
         mock_check_result.return_value = expected_result
 
-        mock_chdir.return_value = "success"
-
         # Execute the run function
         result = action.run(test_hypervisor_object, test_plan_path, test_resource_name,
                             test_state_file, test_terraform_exec, test_variable_dict,
@@ -46,7 +43,6 @@ class DestroyTestCase(TerraformBaseActionTestCase):
         # Verify the results
         self.assertEqual(result, expected_result)
         self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
-        mock_chdir.assert_called_with(test_plan_path)
         mock_import_cmd.assert_called_with('import_cmd')
         action.terraform.import_cmd.assert_called_with(test_resource_name, test_hypervisor_object,
                                                        state=test_state_file,

@@ -11,10 +11,9 @@ class ShowTestCase(TerraformBaseActionTestCase):
         action = self.get_action_instance({})
         self.assertIsInstance(action, Show)
 
-    @mock.patch("show.os.chdir")
     @mock.patch("lib.action.TerraformBaseAction.check_result")
     @mock.patch("lib.action.Terraform.__getattr__")
-    def test_run(self, mock_show, mock_check_result, mock_chdir):
+    def test_run(self, mock_show, mock_check_result):
         action = self.get_action_instance({})
         # Declare test input values
         test_plan_path = "/terraform"
@@ -27,8 +26,6 @@ class ShowTestCase(TerraformBaseActionTestCase):
 
         action.terraform.show.return_value = test_return_code, test_stdout, test_stderr
 
-        mock_chdir.return_value = "success"
-
         expected_result = "result"
         mock_check_result.return_value = expected_result
 
@@ -38,7 +35,6 @@ class ShowTestCase(TerraformBaseActionTestCase):
         # Verify the results
         self.assertEqual(result, expected_result)
         self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
-        mock_chdir.assert_called_with(test_plan_path)
         mock_check_result.assert_called_with(test_return_code, test_stdout, test_stderr)
         mock_show.assert_called_with("show")
         action.terraform.show.assert_called_with("-no-color")
