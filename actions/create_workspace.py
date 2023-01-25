@@ -18,6 +18,6 @@ class CreateWorkspace(action.TerraformBaseAction):
         self.terraform.terraform_bin_path = terraform_exec
         self.set_semantic_version()
         return_code, stdout, stderr = self.terraform.workspace("new", workspace,
-                                                                '-no-color', 
-                                                                raise_on_error=False)
+                                                               '-no-color',
+                                                               raise_on_error=False)
         return self.check_result(return_code, stdout, stderr)
