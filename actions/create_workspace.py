@@ -1,4 +1,3 @@
-import os
 from lib import action
 
 
@@ -15,10 +14,10 @@ class CreateWorkspace(action.TerraformBaseAction):
         Returns:
         - dict: Terraform workspace new command output
         """
-        os.chdir(plan_path)
+        self.terraform.working_dir = plan_path
         self.terraform.terraform_bin_path = terraform_exec
         self.set_semantic_version()
         return_code, stdout, stderr = self.terraform.workspace("new", workspace,
-                                                                '-no-color', 
-                                                                raise_on_error=False)
+                                                               '-no-color',
+                                                               raise_on_error=False)
         return self.check_result(return_code, stdout, stderr)

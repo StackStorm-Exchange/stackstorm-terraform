@@ -1,4 +1,3 @@
-import os
 from lib import action
 
 
@@ -15,7 +14,7 @@ class DeleteWorkspace(action.TerraformBaseAction):
         Returns:
         - dict: Terraform workspace delete command output
         """
-        os.chdir(plan_path)
+        self.terraform.working_dir = plan_path
         self.terraform.terraform_bin_path = terraform_exec
         self.set_semantic_version()
         return_code, stdout, stderr = self.terraform.workspace(
