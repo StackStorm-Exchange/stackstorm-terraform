@@ -1,4 +1,3 @@
-import os
 from lib import action
 
 
@@ -21,7 +20,7 @@ class Import(action.TerraformBaseAction):
         Returns:
         - dict: Terraform destroy command output
         """
-        os.chdir(plan_path)
+        self.terraform.working_dir = plan_path
         self.terraform.terraform_bin_path = terraform_exec
         self.set_semantic_version()
         return_code, stdout, stderr = self.terraform.import_cmd(

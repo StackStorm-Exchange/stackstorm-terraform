@@ -12,10 +12,10 @@ class DestroyTestCase(TerraformBaseActionTestCase):
         action = self.get_action_instance({})
         self.assertIsInstance(action, Destroy)
 
-    @mock.patch("destroy.os.chdir")
+    @mock.patch("lib.action.TerraformBaseAction.set_semantic_version")
     @mock.patch("lib.action.TerraformBaseAction.check_result")
     @mock.patch("lib.action.Terraform.destroy")
-    def test_run(self, mock_destroy, mock_check_result, mock_chdir):
+    def test_run(self, mock_destroy, mock_check_result, mock_version):
         action = self.get_action_instance({})
         # Declare test input values
         test_plan_path = "/terraform"
@@ -30,12 +30,11 @@ class DestroyTestCase(TerraformBaseActionTestCase):
         test_stdout = "Object successfully destroyed!"
         test_stderr = ""
 
+        mock_version.return_value = '1.1.1'
         mock_destroy.return_value = test_return_code, test_stdout, test_stderr
 
         expected_result = "result"
         mock_check_result.return_value = expected_result
-
-        mock_chdir.return_value = "success"
 
         # Execute the run function
         result = action.run(test_plan_path, test_state_file, test_target_resources,
@@ -45,14 +44,13 @@ class DestroyTestCase(TerraformBaseActionTestCase):
         self.assertEqual(result, expected_result)
         self.assertEqual(action.terraform.targets, test_target_resources)
         self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
-        mock_chdir.assert_called_with(test_plan_path)
         mock_destroy.assert_called_with(
-            test_plan_path,
             var_file=test_variable_files,
             var=test_variable_dict,
             state=test_state_file,
             force=IsFlagged,
-            capture_output=False
+            capture_output=False,
+            raise_on_error=False
         )
         mock_check_result.assert_called_with(
             test_return_code,
