@@ -45,12 +45,12 @@ class DestroyTestCase(TerraformBaseActionTestCase):
         self.assertEqual(action.terraform.targets, test_target_resources)
         self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
         mock_destroy.assert_called_with(
-            test_plan_path,
             var_file=test_variable_files,
             var=test_variable_dict,
             state=test_state_file,
             force=IsFlagged,
-            capture_output=False
+            capture_output=False,
+            raise_on_error=False
         )
         mock_check_result.assert_called_with(
             test_return_code,

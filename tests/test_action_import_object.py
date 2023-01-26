@@ -50,5 +50,6 @@ class DestroyTestCase(TerraformBaseActionTestCase):
         action.terraform.import_cmd.assert_called_with(test_resource_name, test_hypervisor_object,
                                                        state=test_state_file,
                                                        var_file=test_variable_files,
-                                                       var=test_variable_dict)
+                                                       var=test_variable_dict,
+                                                       raise_on_error=False)
         mock_check_result.assert_called_with(test_return_code, test_stdout, test_stderr)

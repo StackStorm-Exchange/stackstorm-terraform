@@ -43,7 +43,8 @@ class InitTestCase(TerraformBaseActionTestCase):
         mock_init.assert_called_with(
             backend_config=test_backend,
             capture_output=False,
-            upgrade=IsNotFlagged
+            upgrade=IsNotFlagged,
+            raise_on_error=False
         )
         mock_check_result.assert_called_with(test_return_code, test_stdout, test_stderr)
 
@@ -78,7 +79,8 @@ class InitTestCase(TerraformBaseActionTestCase):
         mock_init.assert_called_with(
             backend_config=test_backend,
             capture_output=False,
-            upgrade=IsFlagged
+            upgrade=IsFlagged,
+            raise_on_error=False
         )
         mock_check_result.assert_called_with(test_return_code, test_stdout, test_stderr)
 
@@ -113,6 +115,7 @@ class InitTestCase(TerraformBaseActionTestCase):
         mock_init.assert_called_with(
             backend_config=test_backend,
             capture_output=False,
-            upgrade=IsNotFlagged
+            upgrade=IsNotFlagged,
+            raise_on_error=False
         )
         mock_check_result.assert_called_with(test_return_code, test_stdout, test_stderr)
