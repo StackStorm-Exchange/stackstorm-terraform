@@ -13,7 +13,7 @@ class CreateWorkspaceTestCase(TerraformBaseActionTestCase):
 
     @mock.patch("lib.action.TerraformBaseAction.set_semantic_version")
     @mock.patch("lib.action.TerraformBaseAction.check_result")
-    @mock.patch("lib.action.Terraform.__getattr__")
+    @mock.patch("lib.action.Terraform.__getattr__", create=True)
     def test_run(self, mock_workspace, mock_check_result, mock_version):
         action = self.get_action_instance({})
         # Declare test input values

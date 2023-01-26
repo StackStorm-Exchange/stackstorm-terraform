@@ -50,7 +50,8 @@ class PlanTestCase(TerraformBaseActionTestCase):
         mock_apply.assert_called_with(
             skip_plan=True,
             auto_approve=IsFlagged,
-            capture_output=False
+            capture_output=False,
+            raise_on_error=False
         )
         mock_check_result.assert_called_with(
             test_return_code,
