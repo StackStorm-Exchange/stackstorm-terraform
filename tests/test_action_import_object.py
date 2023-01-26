@@ -11,10 +11,10 @@ class DestroyTestCase(TerraformBaseActionTestCase):
         action = self.get_action_instance({})
         self.assertIsInstance(action, Import)
 
-    @mock.patch("destroy.os.chdir")
+    @mock.patch("lib.action.TerraformBaseAction.set_semantic_version")
     @mock.patch("lib.action.TerraformBaseAction.check_result")
     @mock.patch("lib.action.Terraform.__getattr__")
-    def test_run(self, mock_import_cmd, mock_check_result, mock_chdir):
+    def test_run(self, mock_import_cmd, mock_check_result, mock_version):
         action = self.get_action_instance({})
         # Declare test input values
         test_hypervisor_object = '/dc.name/vm/folder/vm.name'
@@ -30,13 +30,13 @@ class DestroyTestCase(TerraformBaseActionTestCase):
         test_stdout = "Object successfully destroyed!"
         test_stderr = ""
 
+        mock_version.return_value = '1.1.1'
+
         # mock_import_cmd.return_value = test_return_code, test_stdout, test_stderr
         action.terraform.import_cmd.return_value = test_return_code, test_stdout, test_stderr
 
         expected_result = "result"
         mock_check_result.return_value = expected_result
-
-        mock_chdir.return_value = "success"
 
         # Execute the run function
         result = action.run(test_hypervisor_object, test_plan_path, test_resource_name,
@@ -46,10 +46,10 @@ class DestroyTestCase(TerraformBaseActionTestCase):
         # Verify the results
         self.assertEqual(result, expected_result)
         self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
-        mock_chdir.assert_called_with(test_plan_path)
         mock_import_cmd.assert_called_with('import_cmd')
         action.terraform.import_cmd.assert_called_with(test_resource_name, test_hypervisor_object,
                                                        state=test_state_file,
                                                        var_file=test_variable_files,
-                                                       var=test_variable_dict)
+                                                       var=test_variable_dict,
+                                                       raise_on_error=False)
         mock_check_result.assert_called_with(test_return_code, test_stdout, test_stderr)

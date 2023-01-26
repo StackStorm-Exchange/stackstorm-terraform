@@ -1,5 +1,10 @@
 # Change Log
 
+## 2.0.2
+* Fixed: removed 'os.chdir' calls that were causing os.chdir errors
+* https://developer.hashicorp.com/terraform/language/v1.1.x/upgrade-guides/0-15#commands-accepting-a-configuration-directory-argument
+* Fixed: unit tests
+
 ## 2.0.1
 * Fixed: apply for non default terraform binary path
 
