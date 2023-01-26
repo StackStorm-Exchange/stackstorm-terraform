@@ -39,4 +39,4 @@ class ShowTestCase(TerraformBaseActionTestCase):
         self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
         mock_check_result.assert_called_with(test_return_code, test_stdout, test_stderr)
         mock_show.assert_called_with("show")
-        action.terraform.show.assert_called_with("-no-color")
+        action.terraform.show.assert_called_with("-no-color", raise_on_error=False)
