@@ -36,7 +36,8 @@ class InitTestCase(TerraformBaseActionTestCase):
         mock_check_result.return_value = expected_result
 
         # Execute the run function
-        result = action.run(test_plan_path, test_terraform_exec, test_backend, test_upgrade, test_env_variable_dict)
+        result = action.run(test_plan_path, test_terraform_exec, test_backend, test_upgrade,
+                            test_env_variable_dict)
 
         # Verify the results
         self.assertEqual(result, expected_result)
@@ -84,7 +85,8 @@ class InitTestCase(TerraformBaseActionTestCase):
             upgrade=IsFlagged,
             raise_on_error=False
         )
-        mock_check_result.assert_called_with(test_return_code, test_stdout, test_stderr, test_env_variable_dict)
+        mock_check_result.assert_called_with(test_return_code, test_stdout, test_stderr,
+                                             test_env_variable_dict)
 
     @mock.patch("lib.action.TerraformBaseAction.set_semantic_version")
     @mock.patch("lib.action.TerraformBaseAction.check_result")
@@ -110,7 +112,8 @@ class InitTestCase(TerraformBaseActionTestCase):
         mock_check_result.return_value = expected_result
 
         # Execute the run function
-        result = action.run(test_plan_path, test_terraform_exec, test_backend, test_upgrade, test_env_variable_dict)
+        result = action.run(test_plan_path, test_terraform_exec, test_backend, test_upgrade,
+                            test_env_variable_dict)
 
         # Verify the results
         self.assertEqual(result, expected_result)
