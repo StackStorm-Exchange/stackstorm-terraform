@@ -39,7 +39,8 @@ class PlanTestCase(TerraformBaseActionTestCase):
 
         # Execute the run function
         result = action.run(test_plan_path, test_state_file, test_target_resources,
-                            test_terraform_exec, test_variable_dict, test_variable_files, test_env_variable_dict)
+                            test_terraform_exec, test_variable_dict, test_variable_files,
+                            test_env_variable_dict)
 
         # Verify the results
         self.assertEqual(result, expected_result)
