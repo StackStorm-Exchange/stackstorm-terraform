@@ -1,10 +1,11 @@
+import os
 from lib import action
 from dda_python_terraform import IsFlagged
 
 
 class Apply(action.TerraformBaseAction):
     def run(self, plan_path, state_file_path, target_resources, terraform_exec,
-            variable_dict, variable_files):
+            variable_dict, variable_files, env_variable_dict):
         """
         Apply the changes required to reach the desired state of the configuration.
 
@@ -16,10 +17,12 @@ class Apply(action.TerraformBaseAction):
         - variable_dict: dictionary of Terraform variables that will overwrite the
             variable files if both are declared
         - variable_files: array of Terraform variable files
+        - env_variable_dict: array dedicated for sensitive environment variables
 
         Returns:
         - dict: Terraform output command output
         """
+        self.set_env_variable_dict(env_variable_dict)
         self.terraform.working_dir = plan_path
         self.terraform.state = state_file_path
         self.terraform.targets = target_resources

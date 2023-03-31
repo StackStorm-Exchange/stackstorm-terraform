@@ -1,4 +1,6 @@
 # Change Log
+## 2.1.0
+* Added: 'env_variable_dict' dedicated for sensitive environment variables
 
 ## 2.0.2
 * Fixed: removed 'os.chdir' calls that were causing os.chdir errors
