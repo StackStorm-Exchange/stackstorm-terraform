@@ -22,6 +22,7 @@ class InitTestCase(TerraformBaseActionTestCase):
         test_terraform_exec = "/usr/bin/terraform"
         test_backend = {'path': '/terraform/terraform.tfstate'}
         test_upgrade = False
+        test_env_variable_dict = {'key1': 'value1', 'key2': 'value2'}
 
         # Declare test Terraform.init return values
         test_return_code = 0
@@ -35,11 +36,13 @@ class InitTestCase(TerraformBaseActionTestCase):
         mock_check_result.return_value = expected_result
 
         # Execute the run function
-        result = action.run(test_plan_path, test_terraform_exec, test_backend, test_upgrade)
+        result = action.run(test_plan_path, test_terraform_exec, test_backend, test_upgrade,
+                            test_env_variable_dict)
 
         # Verify the results
         self.assertEqual(result, expected_result)
         self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
+        self.assertEqual(action.set_env_variable_dict(test_env_variable_dict), True)
         mock_init.assert_called_with(
             backend_config=test_backend,
             capture_output=False,
@@ -57,6 +60,7 @@ class InitTestCase(TerraformBaseActionTestCase):
         test_plan_path = "/terraform"
         test_terraform_exec = "/usr/bin/terraform"
         test_backend = {'path': '/terraform/terraform.tfstate'}
+        test_env_variable_dict = {'key1': 'value1', 'key2': 'value2'}
         test_upgrade = True
 
         # Declare test Terraform.init return values
@@ -71,11 +75,13 @@ class InitTestCase(TerraformBaseActionTestCase):
         mock_check_result.return_value = expected_result
 
         # Execute the run function
-        result = action.run(test_plan_path, test_terraform_exec, test_backend, test_upgrade)
+        result = action.run(test_plan_path, test_terraform_exec, test_backend, test_upgrade,
+                            test_env_variable_dict)
 
         # Verify the results
         self.assertEqual(result, expected_result)
         self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
+        self.assertEqual(action.set_env_variable_dict(test_env_variable_dict), True)
         mock_init.assert_called_with(
             backend_config=test_backend,
             capture_output=False,
@@ -93,6 +99,7 @@ class InitTestCase(TerraformBaseActionTestCase):
         test_plan_path = "/terraform"
         test_terraform_exec = "/usr/bin/terraform"
         test_backend = {'path': '/terraform/terraform.tfstate'}
+        test_env_variable_dict = {'key1': 'value1', 'key2': 'value2'}
         test_upgrade = None
 
         # Declare test Terraform.init return values
@@ -107,11 +114,13 @@ class InitTestCase(TerraformBaseActionTestCase):
         mock_check_result.return_value = expected_result
 
         # Execute the run function
-        result = action.run(test_plan_path, test_terraform_exec, test_backend, test_upgrade)
+        result = action.run(test_plan_path, test_terraform_exec, test_backend, test_upgrade,
+                            test_env_variable_dict)
 
         # Verify the results
         self.assertEqual(result, expected_result)
         self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
+        self.assertEqual(action.set_env_variable_dict(test_env_variable_dict), True)
         mock_init.assert_called_with(
             backend_config=test_backend,
             capture_output=False,

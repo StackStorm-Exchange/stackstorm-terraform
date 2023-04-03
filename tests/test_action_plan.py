@@ -23,6 +23,7 @@ class PlanTestCase(TerraformBaseActionTestCase):
         test_terraform_exec = "/usr/bin/terraform"
         test_variable_dict = {'key1': 'value1', 'key2': 'value2'}
         test_variable_files = ["/terraform/test.tfvars"]
+        test_env_variable_dict = {'key1': 'value1', 'key2': 'value2'}
 
         # Declare test Terraform.plan return values
         test_return_code = 0
@@ -37,7 +38,8 @@ class PlanTestCase(TerraformBaseActionTestCase):
 
         # Execute the run function
         result = action.run(test_plan_path, test_state_file, test_target_resources,
-                            test_terraform_exec, test_variable_dict, test_variable_files)
+                            test_terraform_exec, test_variable_dict, test_variable_files,
+                            test_env_variable_dict)
 
         # Verify the results
         self.assertEqual(result, expected_result)
@@ -46,6 +48,7 @@ class PlanTestCase(TerraformBaseActionTestCase):
         self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
         self.assertEqual(action.terraform.var_file, test_variable_files)
         self.assertEqual(action.terraform.variables, test_variable_dict)
+        self.assertEqual(action.set_env_variable_dict(test_env_variable_dict), True)
         mock_plan.assert_called_with(capture_output=False, raise_on_error=False)
         mock_check_result.assert_called_with(
             test_return_code,
@@ -67,6 +70,7 @@ class PlanTestCase(TerraformBaseActionTestCase):
         test_terraform_exec = "/usr/bin/terraform"
         test_variable_dict = {'key1': 'value1', 'key2': 'value2'}
         test_variable_files = ["/terraform/test.tfvars"]
+        test_env_variable_dict = {'key1': 'value1', 'key2': 'value2'}
 
         # Declare test Terraform.plan return values
         test_return_code = 2
@@ -81,7 +85,8 @@ class PlanTestCase(TerraformBaseActionTestCase):
 
         # Execute the run function
         result = action.run(test_plan_path, test_state_file, test_target_resources,
-                            test_terraform_exec, test_variable_dict, test_variable_files)
+                            test_terraform_exec, test_variable_dict, test_variable_files,
+                            test_env_variable_dict)
 
         # Verify the results
         self.assertEqual(result, expected_result)
@@ -90,6 +95,7 @@ class PlanTestCase(TerraformBaseActionTestCase):
         self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
         self.assertEqual(action.terraform.var_file, test_variable_files)
         self.assertEqual(action.terraform.variables, test_variable_dict)
+        self.assertEqual(action.set_env_variable_dict(test_env_variable_dict), True)
         mock_plan.assert_called_with(capture_output=False, raise_on_error=False)
         mock_check_result.assert_called_with(
             test_return_code,

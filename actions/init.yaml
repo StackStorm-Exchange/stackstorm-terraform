@@ -22,3 +22,8 @@ parameters:
     type: "boolean"
     description: "Run init with -upgrade option"
     required: false
+  env_variable_dict:
+    type: "object"
+    description: "Key-Value pairs of sensitive environment variables."
+    required: false
+    secret: true

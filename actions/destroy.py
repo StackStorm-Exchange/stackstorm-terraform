@@ -4,7 +4,7 @@ from dda_python_terraform import IsFlagged
 
 class Destroy(action.TerraformBaseAction):
     def run(self, plan_path, state_file_path, target_resources, terraform_exec,
-            variable_dict, variable_files):
+            variable_dict, variable_files, env_variable_dict):
         """
         Destroy Terraform managed infrastructure
 
@@ -16,10 +16,12 @@ class Destroy(action.TerraformBaseAction):
         - variable_dict: dictionary of Terraform variables that will overwrite
             the variable files if both are declared
         - variable_files: array of Terraform variable files
+        - env_variable_dict: array dedicated for sensitive environment variables
 
         Returns:
         - dict: Terraform destroy command output
         """
+        self.set_env_variable_dict(env_variable_dict)
         self.terraform.working_dir = plan_path
         self.terraform.terraform_bin_path = terraform_exec
         self.set_semantic_version()

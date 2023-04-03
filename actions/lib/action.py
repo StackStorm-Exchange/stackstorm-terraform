@@ -1,6 +1,7 @@
 from st2common.runners.base_action import Action
 from dda_python_terraform import Terraform
 import json
+import os
 
 
 class TerraformBaseAction(Action):
@@ -70,3 +71,13 @@ class TerraformBaseAction(Action):
                 output += stderr
 
         return output
+
+    def set_env_variable_dict(self, env_variable_dict=None):
+        try:
+            if env_variable_dict:
+                for env_var_name in env_variable_dict.keys():
+                    value = str(env_variable_dict.get(env_var_name))
+                    os.environ[str(env_var_name)] = f"{value}"
+            return True
+        except:
+            return False
