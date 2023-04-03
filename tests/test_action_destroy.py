@@ -39,12 +39,14 @@ class DestroyTestCase(TerraformBaseActionTestCase):
 
         # Execute the run function
         result = action.run(test_plan_path, test_state_file, test_target_resources,
-                            test_terraform_exec, test_variable_dict, test_env_variable_dict)
+                            test_terraform_exec, test_variable_dict, test_variable_files,
+                            test_env_variable_dict)
 
         # Verify the results
         self.assertEqual(result, expected_result)
         self.assertEqual(action.terraform.targets, test_target_resources)
         self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
+        self.assertEqual(action.set_env_variable_dict(test_env_variable_dict), True)
         mock_destroy.assert_called_with(
             var_file=test_variable_files,
             var=test_variable_dict,

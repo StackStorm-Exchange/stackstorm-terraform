@@ -49,6 +49,7 @@ class PlanTestCase(TerraformBaseActionTestCase):
         self.assertEqual(action.terraform.terraform_bin_path, test_terraform_exec)
         self.assertEqual(action.terraform.var_file, test_variable_files)
         self.assertEqual(action.terraform.variables, test_variable_dict)
+        self.assertEqual(action.set_env_variable_dict(test_env_variable_dict), True)
         mock_apply.assert_called_with(
             skip_plan=True,
             auto_approve=IsFlagged,
